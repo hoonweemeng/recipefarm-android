@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.app.recipefarm.home.HomeFragment;
 import com.app.recipefarm.onboarding.GetStartedFragment;
 import com.app.recipefarm.onboarding.LoginFragment;
 import com.app.recipefarm.onboarding.RegisterFragment;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         //user logged in
         if (false){
             // show home screen
+            initMainBody();
         }
         else {
             //show onboarding page
@@ -83,13 +85,19 @@ public class MainActivity extends AppCompatActivity {
 
         //Init fragment
         Fragment getStartedFragment = new GetStartedFragment();
-        Fragment  loginFragment = new LoginFragment();
-        Fragment registerFragment = new RegisterFragment();
-
         replaceFragment(getStartedFragment, R.id.onboarding_frame);
     }
 
-    private  void initMainBody(){
+    public void initMainBody(){
+        //hide navigation bar
+        navBar.setVisibility(View.VISIBLE);
+
+        //hide main fragment
+        frameBody.setVisibility(View.VISIBLE);
+
+        //hide onboarding frame
+        frameOnBoarding.setVisibility(View.GONE);
+
         // Default selection
         selectTab(navHome);
 
