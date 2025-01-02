@@ -14,17 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.recipefarm.R;
+import com.app.recipefarm.core.RFFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
-    private View mainView;
-    private ImageView backBtn;
-    private TextView pageTitle;
-
+public class LoginFragment extends RFFragment {
     private LinearLayout registerText;
 
     public LoginFragment() {
@@ -35,11 +32,8 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.onboarding_fragment_login, container, false);
-        pageTitle = mainView.findViewById(R.id.page_title);
-        pageTitle.setText("Login");
-        backBtn = mainView.findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
 
+        initActionBar("Login");
         registerText = mainView.findViewById(R.id.sign_up_text);
         registerText.setOnClickListener(l -> navigateToRegister());
 

@@ -12,18 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.recipefarm.R;
+import com.app.recipefarm.core.RFFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class RegisterFragment extends Fragment {
-
-    private View mainView;
-    private ImageView backBtn;
-    private TextView pageTitle;
-
+public class RegisterFragment extends RFFragment {
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -35,11 +26,9 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.onboarding_fragment_register, container, false);
 
-        pageTitle = mainView.findViewById(R.id.page_title);
-        pageTitle.setText("Register");
-        backBtn = mainView.findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
+        initActionBar("Register");
 
         return mainView;
     }
+
 }
