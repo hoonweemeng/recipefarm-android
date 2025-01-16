@@ -35,6 +35,15 @@ public class LoginFragment extends RFFragment {
         return mainView;
     }
 
+    private void onSubmit() {
+        // validate fields
+
+
+        //
+
+
+    }
+
 
     private void navigateToRegister() {
         Fragment registerFragment = new RegisterFragment();

@@ -1,13 +1,16 @@
 package com.app.recipefarm;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -16,12 +19,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.app.recipefarm.home.HomeFragment;
+import com.app.recipefarm.core.RFActivity;
 import com.app.recipefarm.onboarding.GetStartedFragment;
-import com.app.recipefarm.onboarding.LoginFragment;
-import com.app.recipefarm.onboarding.RegisterFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends RFActivity {
 
     private View navBar;
     private LinearLayout navHome,navBookmarks, navProfile;

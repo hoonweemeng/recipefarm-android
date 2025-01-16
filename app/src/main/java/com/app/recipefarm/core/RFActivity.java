@@ -1,14 +1,19 @@
 package com.app.recipefarm.core;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.recipefarm.R;
 
 // Core Activity with shared methods and variables
-public class RFActivity extends Activity {
+public class RFActivity extends AppCompatActivity {
     private ImageView backBtn;
     private TextView pageTitle;
 

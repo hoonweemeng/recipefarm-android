@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.app.recipefarm.MainActivity;
 import com.app.recipefarm.R;
+import com.app.recipefarm.core.RFActivity;
+import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
 
 public class RegisterFragment extends RFFragment {
@@ -37,7 +39,9 @@ public class RegisterFragment extends RFFragment {
     }
 
     private void onSubmit() {
-        backToHome();
+        RFDialog dialog = new RFDialog(getContext(), "Error", "this username exists", "Ok", "Close", null);
+        dialog.show();
+        //backToHome();
     }
 
 }
