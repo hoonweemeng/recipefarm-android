@@ -1,4 +1,4 @@
-package com.app.recipefarm;import android.content.Context;
+package com.app.recipefarm.utility;import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -15,7 +15,7 @@ public class NetworkManager {
         requestQueue = getRequestQueue();
     }
 
-    public static synchronized NetworkManager getInstance(Context ctx) {
+    public static synchronized NetworkManager shared(Context ctx) {
         if (instance == null) {
             instance = new NetworkManager(ctx.getApplicationContext());
         }

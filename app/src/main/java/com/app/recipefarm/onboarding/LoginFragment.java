@@ -16,11 +16,6 @@ import android.widget.TextView;
 import com.app.recipefarm.R;
 import com.app.recipefarm.core.RFFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LoginFragment extends RFFragment {
     private LinearLayout registerText;
 

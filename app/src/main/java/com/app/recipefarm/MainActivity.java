@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         textBookmarks = findViewById(R.id.text_bookmarks);
         textProfile = findViewById(R.id.text_profile);
 
+        // Click listeners
+        navHome.setOnClickListener(v -> selectTab(navHome));
+        navBookmarks.setOnClickListener(v -> selectTab(navBookmarks));
+        navProfile.setOnClickListener(v -> selectTab(navProfile));
+
         //user logged in
         if (false){
             // show home screen
@@ -71,6 +76,26 @@ public class MainActivity extends AppCompatActivity {
             onBoarding();
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (RFDataManager.shared().mainActivityHelper.navigationPage != null){
+            switch (RFDataManager.shared().mainActivityHelper.navigationPage) {
+                case HOME:
+                    selectTab(navHome);
+                    break;
+                case BOOKMARK:
+                    selectTab(navBookmarks);
+                    break;
+                case PROFILE:
+                    selectTab(navProfile);
+                    break;
+            }
+            // reset navigation helper
+            RFDataManager.shared().mainActivityHelper = new MainActivityHelper();
+        }
     }
 
     private void onBoarding() {
@@ -101,10 +126,6 @@ public class MainActivity extends AppCompatActivity {
         // Default selection
         selectTab(navHome);
 
-        // Click listeners
-        navHome.setOnClickListener(v -> selectTab(navHome));
-        navBookmarks.setOnClickListener(v -> selectTab(navBookmarks));
-        navProfile.setOnClickListener(v -> selectTab(navProfile));
     }
 
     public void replaceFragment(Fragment fragment, int frame){

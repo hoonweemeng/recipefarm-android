@@ -32,11 +32,11 @@ public class RegisterFragment extends RFFragment {
         mainView = inflater.inflate(R.layout.onboarding_fragment_register, container, false);
         initActionBar("Register");
         registerBtn = mainView.findViewById(R.id.register_btn);
-        registerBtn.setOnClickListener(v -> onClickSubmitBtn());
+        registerBtn.setOnClickListener(v -> onSubmit());
         return mainView;
     }
 
-    private void onClickSubmitBtn() {
+    private void onSubmit() {
         backToHome();
     }
 

@@ -12,7 +12,7 @@ public class RFDataManager {
         return RFDataManagerHelper.INSTANCE;
     }
 
-
+    public MainActivityHelper mainActivityHelper = new MainActivityHelper();
 
 
 }
