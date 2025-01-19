@@ -15,7 +15,7 @@ public class NetworkManager {
         requestQueue = getRequestQueue();
     }
 
-    public static synchronized NetworkManager shared(Context ctx) {
+    public static synchronized NetworkManager getInstance(Context ctx) {
         if (instance == null) {
             instance = new NetworkManager(ctx.getApplicationContext());
         }
@@ -29,36 +29,23 @@ public class NetworkManager {
         return requestQueue;
     }
 
-    public <T> void addToRequestQueue(Request<T> request) {
-        getRequestQueue().add(request);
-    }
-
-    public <T> void post(String url, Map<String, String> headers, T body, Class<T> responseClass,
-                         final ResponseCallback<T> callback) {
-        GsonRequest<T> gsonRequest = new GsonRequest<>(
+    public <RequestType, ResponseType> void post(
+            String url,
+            Map<String, String> headers,
+            RequestType requestBody,
+            Class<ResponseType> responseClass,
+            final ResponseCallback<ResponseType> callback
+    ) {
+        GsonRequest<RequestType, ResponseType> gsonRequest = new GsonRequest<>(
                 Request.Method.POST,
                 url,
-                body,
+                requestBody,
                 responseClass,
                 headers,
                 callback::onSuccess,
                 error -> callback.onError(error.getMessage())
         );
-        addToRequestQueue(gsonRequest);
-    }
-
-    public <T> void get(String url, Map<String, String> headers, Class<T> responseClass,
-                        final ResponseCallback<T> callback) {
-        GsonRequest<T> gsonRequest = new GsonRequest<>(
-                Request.Method.GET,
-                url,
-                null,
-                responseClass,
-                headers,
-                callback::onSuccess,
-                error -> callback.onError(error.getMessage())
-        );
-        addToRequestQueue(gsonRequest);
+        getRequestQueue().add(gsonRequest);
     }
 
     public interface ResponseCallback<T> {

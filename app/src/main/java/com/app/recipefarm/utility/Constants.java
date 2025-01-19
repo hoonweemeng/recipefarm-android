@@ -1,6 +1,7 @@
 package com.app.recipefarm.utility;
 
 public class Constants {
+    // shared prefs key
     public static String USERID = "userId";
 
 

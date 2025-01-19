@@ -2,7 +2,9 @@ package com.app.recipefarm.core;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.app.recipefarm.MainActivity;
 import com.app.recipefarm.R;
+import com.app.recipefarm.utility.RFLoader;
 
 // Core Fragment with shared methods and variables
 public class RFFragment extends Fragment {
@@ -20,6 +23,12 @@ public class RFFragment extends Fragment {
     public View mainView;
     private ImageView backBtn;
     private TextView pageTitle;
+    public RFLoader loader;
+
+    public void showLoader(String errorMessage){
+        loader = new RFLoader(getContext());
+        loader.show(errorMessage);
+    }
 
     public void initActionBar(String title) {
         try {
