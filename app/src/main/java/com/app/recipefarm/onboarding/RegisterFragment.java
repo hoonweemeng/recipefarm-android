@@ -3,6 +3,7 @@ package com.app.recipefarm.onboarding;
 import static com.app.recipefarm.utility.Constants.USERID;
 import static com.app.recipefarm.utility.Constants.registerUserEndpoint;
 import static com.app.recipefarm.utility.RFFunctions.getInvalidEntries;
+import static com.app.recipefarm.utility.RFFunctions.isResponseSuccessful;
 import static com.app.recipefarm.utility.RFFunctions.responseErrorHandler;
 import static com.app.recipefarm.utility.ValidationMethods.validateEmailAddress;
 import static com.app.recipefarm.utility.ValidationMethods.validatePassword;
@@ -137,7 +138,7 @@ public class RegisterFragment extends RFFragment {
     }
 
     private void parseResponse(UserRegisterResponse response) {
-        if (response.success == true){
+        if (isResponseSuccessful(response)){
             SharedPrefsManager.shared(getContext()).saveData(USERID, response.data.id);
             backToHome();
         }

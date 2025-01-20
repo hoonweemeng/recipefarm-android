@@ -1,5 +1,6 @@
 package com.app.recipefarm.utility;
 
+import static com.app.recipefarm.utility.Constants.GENERIC_ERROR_MSG;
 import static com.app.recipefarm.utility.Constants.USERID;
 
 import android.content.Context;
@@ -20,7 +21,16 @@ public class RFFunctions {
         return (value == null || value.isBlank());
     }
 
+    public static Boolean isResponseSuccessful(RFResponse response) {
+        return (response != null && response.success);
+    }
+
     public static void responseErrorHandler(Context context, RFResponse response) {
+        if (response == null) {
+            RFDialog dialog = new RFDialog(context, "Error", GENERIC_ERROR_MSG, null, "Close", null);
+            dialog.show();
+            return;
+        }
         if (response.validationErrors != null && !response.validationErrors.isEmpty()){
             RFDialog dialog = new RFDialog(context, "Error", response.validationErrors.get(0).message, null, "Close", null);
             dialog.show();
@@ -30,7 +40,7 @@ public class RFFunctions {
             dialog.show();
         }
         else {
-            RFDialog dialog = new RFDialog(context, "Error", "Error 500", null, "Close", null);
+            RFDialog dialog = new RFDialog(context, "Error", GENERIC_ERROR_MSG, null, "Close", null);
             dialog.show();
         }
     }

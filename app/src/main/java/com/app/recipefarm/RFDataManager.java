@@ -15,8 +15,8 @@ public class RFDataManager {
     }
     private RFDataManagerData rfDataManagerData= new RFDataManagerData();
 
-    public void reset(){
-        rfDataManagerData= new RFDataManagerData();
+    public static void reset(){
+        RFDataManagerHelper.INSTANCE.rfDataManagerData = new RFDataManagerData();
     }
 
 }

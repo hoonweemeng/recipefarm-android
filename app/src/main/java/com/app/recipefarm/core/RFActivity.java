@@ -11,11 +11,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.recipefarm.R;
+import com.app.recipefarm.utility.RFLoader;
 
 // Core Activity with shared methods and variables
 public class RFActivity extends AppCompatActivity {
     private ImageView backBtn;
     private TextView pageTitle;
+
+    public RFLoader loader;
+
+    public void showLoader(String message){
+        loader = new RFLoader(this);
+        loader.show(message);
+    }
 
     public void initActionBar(String title) {
         try {

@@ -25,9 +25,9 @@ public class RFFragment extends Fragment {
     private TextView pageTitle;
     public RFLoader loader;
 
-    public void showLoader(String errorMessage){
+    public void showLoader(String message){
         loader = new RFLoader(getContext());
-        loader.show(errorMessage);
+        loader.show(message);
     }
 
     public void initActionBar(String title) {

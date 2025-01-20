@@ -5,29 +5,37 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/dialogTitleText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:minWidth="300dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:text="Title"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/dark_grey"
-        android:textSize="18sp" />
+        android:layout_height="match_parent"
+        android:paddingHorizontal="8dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/dialogBodyText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
-        android:text="body"
-        android:paddingBottom="8dp"
-        android:textSize="14sp"
-        android:textAlignment="center" />
+        <TextView
+            android:id="@+id/dialogTitleText"
+            android:layout_width="match_parent"
+            android:minWidth="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Title"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/dark_grey"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/dialogBodyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="body"
+            android:paddingBottom="8dp"
+            android:textSize="14sp"
+            android:textAlignment="center" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

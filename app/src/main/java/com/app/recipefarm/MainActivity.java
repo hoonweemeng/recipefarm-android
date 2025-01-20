@@ -1,20 +1,22 @@
 package com.app.recipefarm;
 
 import static com.app.recipefarm.utility.Constants.USERID;
+import static com.app.recipefarm.utility.Constants.detailUserEndpoint;
+import static com.app.recipefarm.utility.RFFunctions.getHeaders;
+import static com.app.recipefarm.utility.RFFunctions.getHeadersForFirstCall;
 import static com.app.recipefarm.utility.RFFunctions.isNullOrBlank;
+import static com.app.recipefarm.utility.RFFunctions.isResponseSuccessful;
+import static com.app.recipefarm.utility.RFFunctions.responseErrorHandler;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,8 +25,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.app.recipefarm.core.RFActivity;
+import com.app.recipefarm.core.RFDialog;
+import com.app.recipefarm.models.request.generic.EmptyRequest;
+import com.app.recipefarm.models.response.user.UserDetailResponse;
+import com.app.recipefarm.models.response.user.UserRegisterResponse;
 import com.app.recipefarm.onboarding.GetStartedFragment;
+import com.app.recipefarm.utility.Constants;
+import com.app.recipefarm.utility.NetworkManager;
 import com.app.recipefarm.utility.SharedPrefsManager;
+
+import java.util.Objects;
 
 public class MainActivity extends RFActivity {
 
@@ -112,7 +122,55 @@ public class MainActivity extends RFActivity {
     }
 
     private void fetchUserDetail() {
+        Context cxt = this;
+        showLoader(null);
+        //send request
+        NetworkManager.getInstance(this).post(
+                detailUserEndpoint,
+                getHeadersForFirstCall(this),
+                new EmptyRequest(),
+                UserDetailResponse.class,
+                new NetworkManager.ResponseCallback<UserDetailResponse>() {
+                    @Override
+                    public void onSuccess(UserDetailResponse response) {
+                        loader.hide();
+                        parseUserDetailResponse(response);
+                    }
 
+                    @Override
+                    public void onError(String error) {
+                        loader.hide();
+                        RFDialog dialog = new RFDialog(cxt, "Error", error, null, "Close", null);
+                        dialog.show();
+                    }
+                }
+        );
+
+    }
+
+    private void parseUserDetailResponse(UserDetailResponse response) {
+        if (isResponseSuccessful(response)){
+            SharedPrefsManager.shared(this).saveData(USERID, response.data.userId);
+            RFDataManager.shared().user = response.data;
+        }
+        else {
+            if (response != null && Objects.equals(response.errorMessage, "User does not exist.")) {
+                // force user to logout (account probably got deleted)
+                logout();
+            }
+            else {
+                responseErrorHandler(this, response);
+            }
+        }
+    }
+
+    private void logout() {
+        // clear all data
+        RFDataManager.reset();
+        SharedPrefsManager.shared(this).clearAll();
+
+        // redirect
+        onBoarding();
     }
 
     private void onBoarding() {
@@ -161,6 +219,7 @@ public class MainActivity extends RFActivity {
             changeTabButtonColor(iconBookmarks, textBookmarks, selectedTabColor);
         } else if (selectedTab.equals(navProfile)) {
             changeTabButtonColor(iconProfile, textProfile, selectedTabColor);
+            logout();
         }
     }
 
