@@ -10,14 +10,14 @@ public class RFDataManager {
         private static final RFDataManager INSTANCE = new RFDataManager();
     }
 
-    public static RFDataManager shared() {
-        return RFDataManagerHelper.INSTANCE;
+    public static RFDataManagerData shared() {
+        return RFDataManagerHelper.INSTANCE.rfDataManagerData;
     }
+    private RFDataManagerData rfDataManagerData= new RFDataManagerData();
 
-    public MainActivityHelper mainActivityHelper = new MainActivityHelper();
-
-    public User user = null;
-
+    public void reset(){
+        rfDataManagerData= new RFDataManagerData();
+    }
 
 }
 

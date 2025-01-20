@@ -1,6 +1,7 @@
 package com.app.recipefarm;
 
 import static com.app.recipefarm.utility.Constants.USERID;
+import static com.app.recipefarm.utility.RFFunctions.isNullOrBlank;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -103,6 +104,15 @@ public class MainActivity extends RFActivity {
             // reset navigation helper
             RFDataManager.shared().mainActivityHelper = new MainActivityHelper();
         }
+
+        userId = SharedPrefsManager.shared(this).getData(USERID, String.class);
+        if (!isNullOrBlank(userId) && RFDataManager.shared().user == null){
+            fetchUserDetail();
+        }
+    }
+
+    private void fetchUserDetail() {
+
     }
 
     private void onBoarding() {

@@ -2,11 +2,13 @@ package com.app.recipefarm.onboarding;
 
 import static com.app.recipefarm.utility.Constants.USERID;
 import static com.app.recipefarm.utility.Constants.registerUserEndpoint;
+import static com.app.recipefarm.utility.RFFunctions.getInvalidEntries;
+import static com.app.recipefarm.utility.RFFunctions.responseErrorHandler;
+import static com.app.recipefarm.utility.ValidationMethods.validateEmailAddress;
+import static com.app.recipefarm.utility.ValidationMethods.validatePassword;
+import static com.app.recipefarm.utility.ValidationMethods.validateUsername;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,13 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.app.recipefarm.MainActivity;
 import com.app.recipefarm.R;
-import com.app.recipefarm.core.RFActivity;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
 import com.app.recipefarm.models.base.User;
@@ -32,8 +29,6 @@ import com.app.recipefarm.utility.SharedPrefsManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class RegisterFragment extends RFFragment {
 
@@ -106,9 +101,7 @@ public class RegisterFragment extends RFFragment {
         validationList.add(validateUsername(inputUsername));
         validationList.add(validatePassword(inputPassword, inputRetypePassword));
 
-        List<ValidationModel> invalidEntries = validationList.stream()
-                .filter(validation -> !validation.isValid)
-                .collect(Collectors.toList());
+        List<ValidationModel> invalidEntries = getInvalidEntries(validationList);
 
         if (!invalidEntries.isEmpty()){
             RFDialog dialog = new RFDialog(getContext(), "Error", invalidEntries.get(0).message, null, "Close", null);
@@ -149,66 +142,8 @@ public class RegisterFragment extends RFFragment {
             backToHome();
         }
         else {
-            if (response.validationErrors != null && !response.validationErrors.isEmpty()){
-                RFDialog dialog = new RFDialog(getContext(), "Error", response.validationErrors.get(0).message, null, "Close", null);
-                dialog.show();
-            }
-            else if (response.errorMessage != null) {
-                RFDialog dialog = new RFDialog(getContext(), "Error", response.errorMessage, null, "Close", null);
-                dialog.show();
-            }
-            else {
-                RFDialog dialog = new RFDialog(getContext(), "Error", "Error 500", null, "Close", null);
-                dialog.show();
-            }
+            responseErrorHandler(getContext(), response);
         }
     }
-
-
-
-    //Validation
-    private ValidationModel validateEmailAddress(String value) {
-
-        if (value == null || value.isEmpty()) {
-            return new ValidationModel("email", false,"Email Address is required.");
-        }
-
-        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-        if (!Pattern.compile(emailRegex).matcher(value).matches()){
-            return new ValidationModel("email", false,"Email Address is invalid.");
-        }
-        return new ValidationModel("email", true,null);
-    }
-
-    private ValidationModel validateUsername(String value) {
-
-        if (value.isEmpty()){
-            return new ValidationModel("username", false,"Username is required.");
-        }
-
-        if (value.length() > 50){
-            return new ValidationModel("password", false,"Username must be at lesser than 50 characters long.");
-        }
-
-        return new ValidationModel("username", true,null);
-    }
-
-    private ValidationModel validatePassword(String pwd, String retypePwd) {
-
-        if (pwd.isEmpty() || retypePwd.isEmpty()){
-            return new ValidationModel("password", false,"Password is required.");
-        }
-
-        if (pwd.length() < 8){
-            return new ValidationModel("password", false,"Password must be at least 8 characters long.");
-        }
-
-        if (!pwd.equals(retypePwd)){
-            return new ValidationModel("password", false,"Password is not the same as Retype Password.");
-        }
-
-        return new ValidationModel("password", true,null);
-    }
-
 
 }
