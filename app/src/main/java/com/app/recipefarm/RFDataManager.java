@@ -1,5 +1,7 @@
 package com.app.recipefarm;
 
+import com.app.recipefarm.models.base.User;
+
 public class RFDataManager {
     private RFDataManager() {}
 
@@ -13,6 +15,8 @@ public class RFDataManager {
     }
 
     public MainActivityHelper mainActivityHelper = new MainActivityHelper();
+
+    public User user = null;
 
 
 }

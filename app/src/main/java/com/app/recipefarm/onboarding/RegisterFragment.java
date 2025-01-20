@@ -141,22 +141,24 @@ public class RegisterFragment extends RFFragment {
                     }
                 }
         );
-
-        backToHome();
     }
 
     private void parseResponse(UserRegisterResponse response) {
         if (response.success == true){
             SharedPrefsManager.shared(getContext()).saveData(USERID, response.data.id);
-            System.out.println(response);
+            backToHome();
         }
         else {
-            if (!response.validationErrors.isEmpty()){
+            if (response.validationErrors != null && !response.validationErrors.isEmpty()){
                 RFDialog dialog = new RFDialog(getContext(), "Error", response.validationErrors.get(0).message, null, "Close", null);
                 dialog.show();
             }
-            else {
+            else if (response.errorMessage != null) {
                 RFDialog dialog = new RFDialog(getContext(), "Error", response.errorMessage, null, "Close", null);
+                dialog.show();
+            }
+            else {
+                RFDialog dialog = new RFDialog(getContext(), "Error", "Error 500", null, "Close", null);
                 dialog.show();
             }
         }

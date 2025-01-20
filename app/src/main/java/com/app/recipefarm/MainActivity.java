@@ -1,5 +1,7 @@
 package com.app.recipefarm;
 
+import static com.app.recipefarm.utility.Constants.USERID;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.app.recipefarm.core.RFActivity;
 import com.app.recipefarm.onboarding.GetStartedFragment;
+import com.app.recipefarm.utility.SharedPrefsManager;
 
 public class MainActivity extends RFActivity {
 
@@ -33,6 +36,8 @@ public class MainActivity extends RFActivity {
 
     //onboarding fragment
     private Fragment getStartedFragment, loginFragment, registerFragment;
+
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,8 @@ public class MainActivity extends RFActivity {
         navProfile.setOnClickListener(v -> selectTab(navProfile));
 
         //user logged in
-        if (false){
+        userId = SharedPrefsManager.shared(this).getData(USERID, String.class);
+        if (userId != null){
             // show home screen
             initMainBody();
         }
