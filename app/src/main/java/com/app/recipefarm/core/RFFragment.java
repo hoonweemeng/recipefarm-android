@@ -1,21 +1,15 @@
 package com.app.recipefarm.core;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.app.recipefarm.MainActivity;
 import com.app.recipefarm.R;
-import com.app.recipefarm.utility.RFLoader;
 
 // Core Fragment with shared methods and variables
 public class RFFragment extends Fragment {
@@ -30,12 +24,19 @@ public class RFFragment extends Fragment {
         loader.show(message);
     }
 
-    public void initActionBar(String title) {
+    public void initActionBar(String title, Boolean requireBackBtn) {
         try {
             pageTitle = mainView.findViewById(R.id.page_title);
             pageTitle.setText(title);
             backBtn = mainView.findViewById(R.id.backBtn);
             backBtn.setOnClickListener(v -> requireActivity().onBackPressed());
+
+            if (requireBackBtn) {
+                backBtn.setVisibility(View.VISIBLE);
+            }
+            else {
+                backBtn.setVisibility(View.GONE);
+            }
         }
         catch (Exception exception){
             // Action Bar not found

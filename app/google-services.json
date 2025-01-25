@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "852634456508",
+    "project_id": "recipefarm-bb9ea",
+    "storage_bucket": "recipefarm-bb9ea.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852634456508:android:de36ed6074e2309f509bb9",
+        "android_client_info": {
+          "package_name": "com.app.recipefarm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl2n9yaCuY6HW5DmLo1LoV2FnhcENyFao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

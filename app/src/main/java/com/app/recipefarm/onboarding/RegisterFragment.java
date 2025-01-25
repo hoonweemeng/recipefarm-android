@@ -44,7 +44,7 @@ public class RegisterFragment extends RFFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.onboarding_fragment_register, container, false);
-        initActionBar("Register");
+        initActionBar("Register", true);
         registerBtn = mainView.findViewById(R.id.register_btn);
         registerBtn.setOnClickListener(v -> onSubmit());
 

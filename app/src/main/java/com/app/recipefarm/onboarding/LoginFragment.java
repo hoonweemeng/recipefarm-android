@@ -48,7 +48,7 @@ public class LoginFragment extends RFFragment {
                              Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.onboarding_fragment_login, container, false);
 
-        initActionBar("Login");
+        initActionBar("Login", true);
         registerText = mainView.findViewById(R.id.sign_up_text);
         registerText.setOnClickListener(l -> navigateToRegister());
 

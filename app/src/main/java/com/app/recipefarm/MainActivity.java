@@ -2,7 +2,6 @@ package com.app.recipefarm;
 
 import static com.app.recipefarm.utility.Constants.USERID;
 import static com.app.recipefarm.utility.Constants.detailUserEndpoint;
-import static com.app.recipefarm.utility.RFFunctions.getHeaders;
 import static com.app.recipefarm.utility.RFFunctions.getHeadersForFirstCall;
 import static com.app.recipefarm.utility.RFFunctions.isNullOrBlank;
 import static com.app.recipefarm.utility.RFFunctions.isResponseSuccessful;
@@ -26,11 +25,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.app.recipefarm.core.RFActivity;
 import com.app.recipefarm.core.RFDialog;
+import com.app.recipefarm.home.HomeFragment;
+import com.app.recipefarm.profile.ProfileFragment;
 import com.app.recipefarm.models.request.generic.EmptyRequest;
 import com.app.recipefarm.models.response.user.UserDetailResponse;
-import com.app.recipefarm.models.response.user.UserRegisterResponse;
 import com.app.recipefarm.onboarding.GetStartedFragment;
-import com.app.recipefarm.utility.Constants;
 import com.app.recipefarm.utility.NetworkManager;
 import com.app.recipefarm.utility.SharedPrefsManager;
 
@@ -45,8 +44,8 @@ public class MainActivity extends RFActivity {
 
     private FrameLayout frameOnBoarding, frameBody;
 
-    //onboarding fragment
-    private Fragment getStartedFragment, loginFragment, registerFragment;
+    //main page fragment
+    private Fragment profileFragment, homeFragment, registerFragment;
 
     private String userId;
 
@@ -83,6 +82,8 @@ public class MainActivity extends RFActivity {
         navBookmarks.setOnClickListener(v -> selectTab(navBookmarks));
         navProfile.setOnClickListener(v -> selectTab(navProfile));
 
+        initFragments();
+
         //user logged in
         userId = SharedPrefsManager.shared(this).getData(USERID, String.class);
         if (userId != null){
@@ -99,6 +100,11 @@ public class MainActivity extends RFActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        userId = SharedPrefsManager.shared(this).getData(USERID, String.class);
+        if (!isNullOrBlank(userId) && RFDataManager.shared().user == null){
+            fetchUserDetail();
+        }
+
         if (RFDataManager.shared().mainActivityHelper.navigationPage != null){
             switch (RFDataManager.shared().mainActivityHelper.navigationPage) {
                 case HOME:
@@ -113,11 +119,6 @@ public class MainActivity extends RFActivity {
             }
             // reset navigation helper
             RFDataManager.shared().mainActivityHelper = new MainActivityHelper();
-        }
-
-        userId = SharedPrefsManager.shared(this).getData(USERID, String.class);
-        if (!isNullOrBlank(userId) && RFDataManager.shared().user == null){
-            fetchUserDetail();
         }
     }
 
@@ -203,6 +204,11 @@ public class MainActivity extends RFActivity {
 
     }
 
+    public void initFragments() {
+        profileFragment = new ProfileFragment();
+        homeFragment = new HomeFragment();
+    }
+
     public void replaceFragment(Fragment fragment, int frame){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -215,11 +221,14 @@ public class MainActivity extends RFActivity {
         int selectedTabColor = R.color.cadet_blue;
         if (selectedTab.equals(navHome)) {
             changeTabButtonColor(iconHome, textHome, selectedTabColor);
+            replaceFragment(homeFragment, R.id.mainbody_frame);
+
         } else if (selectedTab.equals(navBookmarks)) {
             changeTabButtonColor(iconBookmarks, textBookmarks, selectedTabColor);
+
         } else if (selectedTab.equals(navProfile)) {
             changeTabButtonColor(iconProfile, textProfile, selectedTabColor);
-            logout();
+            replaceFragment(profileFragment, R.id.mainbody_frame);
         }
     }
 

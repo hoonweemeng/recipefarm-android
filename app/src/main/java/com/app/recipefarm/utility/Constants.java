@@ -8,6 +8,10 @@ public class Constants {
     public static String GENERIC_ERROR_MSG = "Something went wrong.\n Please try again later";
 
 
+    //firebase storage folder names
+    public static String RECIPE_IMAGES = "recipeImages";
+
+
     //url
     public static String BASEURL = "https://recipefarm.88899900.xyz/";
 

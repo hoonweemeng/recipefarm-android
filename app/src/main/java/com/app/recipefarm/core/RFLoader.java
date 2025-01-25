@@ -1,6 +1,5 @@
-package com.app.recipefarm.utility;
+package com.app.recipefarm.core;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;

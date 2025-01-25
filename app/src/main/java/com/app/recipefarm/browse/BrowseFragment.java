@@ -1,26 +1,28 @@
-package com.app.recipefarm.home;
+package com.app.recipefarm.browse;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.recipefarm.R;
-import com.app.recipefarm.browse.BrowseFragment;
+import com.app.recipefarm.core.RFFragment;
 
-public class HomeFragment extends BrowseFragment {
 
-    public HomeFragment() {
+public class BrowseFragment extends RFFragment {
+
+    public BrowseFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       super.onCreateView(inflater,container,savedInstanceState);
+        mainView = inflater.inflate(R.layout.fragment_browse, container, false);
 
-       initActionBar("Home", false);
         return mainView;
     }
 }
