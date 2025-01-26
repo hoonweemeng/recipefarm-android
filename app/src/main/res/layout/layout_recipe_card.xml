@@ -22,7 +22,7 @@
                 android:id="@+id/recipeCardImage"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                app:srcCompat="@drawable/login_card"
+                app:srcCompat="@drawable/profile_picture"
                 android:scaleType="centerCrop" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,12 +33,13 @@
                 <TextView
                     android:id="@+id/recipeCardTitle"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="title"
                     android:textAlignment="viewStart"
                     android:textColor="@color/dark_grey"
                     android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

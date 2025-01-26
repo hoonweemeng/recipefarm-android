@@ -38,7 +38,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
     @Override
     public BrowseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.activity_main, parent,false);
+        View view = inflater.inflate(R.layout.layout_recipe_card, parent,false);
         return new BrowseAdapter.ViewHolder(view);
     }
 

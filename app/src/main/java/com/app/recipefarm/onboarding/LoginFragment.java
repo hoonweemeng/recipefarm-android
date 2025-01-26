@@ -117,10 +117,6 @@ public class LoginFragment extends RFFragment {
 
     private void navigateToRegister() {
         Fragment registerFragment = new RegisterFragment();
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.onboarding_frame, registerFragment);
-        transaction.addToBackStack(null); // Add this transaction to the back stack
-        transaction.commit();
+        navigateToAnotherFragment(registerFragment, R.id.onboarding_frame);
     }
 }

@@ -209,13 +209,6 @@ public class MainActivity extends RFActivity {
         homeFragment = new HomeFragment();
     }
 
-    public void replaceFragment(Fragment fragment, int frame){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(frame, fragment);
-        fragmentTransaction.commit();
-    }
-
     private void selectTab(View selectedTab) {
         resetTabs();
         int selectedTabColor = R.color.cadet_blue;

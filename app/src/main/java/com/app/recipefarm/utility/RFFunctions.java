@@ -1,10 +1,14 @@
 package com.app.recipefarm.utility;
 
 import static com.app.recipefarm.utility.Constants.GENERIC_ERROR_MSG;
+import static com.app.recipefarm.utility.Constants.PROFILE_IMAGES;
 import static com.app.recipefarm.utility.Constants.USERID;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
+import com.app.recipefarm.MainActivity;
 import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.models.base.ValidationModel;
@@ -16,6 +20,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RFFunctions {
+
+    public static void logout(Activity activity) {
+        // clear all data
+        RFDataManager.reset();
+        SharedPrefsManager.shared(activity).clearAll();
+
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+    public static String getProfileImagePath(String fileName) {
+        return PROFILE_IMAGES + "/" + fileName;
+    }
 
     public static Boolean isNullOrBlank(String value) {
         return (value == null || value.isBlank());

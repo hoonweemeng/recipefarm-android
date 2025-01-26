@@ -10,6 +10,7 @@ public class Constants {
 
     //firebase storage folder names
     public static String RECIPE_IMAGES = "recipeImages";
+    public static String PROFILE_IMAGES = "profileImages";
 
 
     //url

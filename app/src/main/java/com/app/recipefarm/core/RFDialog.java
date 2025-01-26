@@ -37,7 +37,7 @@ public class RFDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog); // Use your custom layout
+        setContentView(R.layout.layout_dialog); // Use your custom layout
 
         // Initialize UI components
         TextView titleText = findViewById(R.id.dialogTitleText);

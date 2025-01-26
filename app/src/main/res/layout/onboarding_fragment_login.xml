@@ -13,7 +13,7 @@
 
         <include
             android:id="@+id/action_bar"
-            layout="@layout/generic_action_bar" />
+            layout="@layout/layout_generic_action_bar" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

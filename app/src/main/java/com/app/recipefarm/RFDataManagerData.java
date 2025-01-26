@@ -1,6 +1,7 @@
 package com.app.recipefarm;
 
 import com.app.recipefarm.models.base.User;
+import com.app.recipefarm.recipeform.RecipeFormHelper;
 
 public class RFDataManagerData{
 
@@ -8,4 +9,5 @@ public class RFDataManagerData{
     public MainActivityHelper mainActivityHelper = new MainActivityHelper();
 
     public User user = null;
+    public RecipeFormHelper recipeFormHelper = new RecipeFormHelper();
 }

@@ -26,7 +26,7 @@ public class RFLoader {
 
     private void initLoader() {
         // Inflate the custom loader layout
-        View view = LayoutInflater.from(dialog.getContext()).inflate(R.layout.rf_loader_layout, null);
+        View view = LayoutInflater.from(dialog.getContext()).inflate(R.layout.layout_rf_loader, null);
 
         // Configure the dialog
         dialog.setContentView(view);
