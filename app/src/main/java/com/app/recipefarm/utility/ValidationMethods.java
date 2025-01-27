@@ -1,5 +1,6 @@
 package com.app.recipefarm.utility;
 
+import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.models.base.ValidationModel;
 
 import java.util.regex.Pattern;
@@ -8,6 +9,57 @@ public class ValidationMethods {
 
     //Validation
 
+    // for recipe form
+    public static ValidationModel validateTitle(String value) {
+        if (value == null || value.isEmpty()) {
+            return new ValidationModel("title", false,"Title is required.");
+        }
+        return new ValidationModel("title", true,null);
+    }
+
+    public static ValidationModel validateDescription(String value) {
+        if (value == null || value.isEmpty()) {
+            return new ValidationModel("description", false,"Title is required.");
+        }
+        return new ValidationModel("description", true,null);
+    }
+
+    public static ValidationModel validateDuration(String value) {
+        if (value == null || value.isEmpty()) {
+            return new ValidationModel("duration", false,"Duration is required.");
+        }
+
+        try {
+            Integer.parseInt(value);
+        }
+        catch (NumberFormatException e) {
+            return new ValidationModel("duration", false,"Duration must be an integer.");
+        }
+
+        return new ValidationModel("duration", true,null);
+    }
+
+    public static ValidationModel validateServings(String value) {
+        if (value == null || value.isEmpty()) {
+            return new ValidationModel("servings", false,"Servings is required.");
+        }
+
+        try {
+            Integer.parseInt(value);
+        }
+        catch (NumberFormatException e) {
+            return new ValidationModel("servings", false,"Servings must be an integer.");
+        }
+
+        return new ValidationModel("servings", true,null);
+    }
+
+    public static ValidationModel validateRecipeImage() {
+        if (RFDataManager.shared().recipeFormHelper.recipe.recipeImage == null && RFDataManager.shared().recipeFormHelper.recipeImageURI == null) {
+            return new ValidationModel("image", false,"Image is required.");
+        }
+        return new ValidationModel("image", true,null);
+    }
 
 
     // for login and register

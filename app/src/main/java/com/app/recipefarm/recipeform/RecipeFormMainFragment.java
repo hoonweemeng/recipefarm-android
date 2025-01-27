@@ -2,6 +2,14 @@ package com.app.recipefarm.recipeform;
 
 import static android.app.Activity.RESULT_OK;
 
+import static com.app.recipefarm.utility.RFFunctions.getInvalidEntries;
+import static com.app.recipefarm.utility.ValidationMethods.validateDescription;
+import static com.app.recipefarm.utility.ValidationMethods.validateDuration;
+import static com.app.recipefarm.utility.ValidationMethods.validateEmailAddress;
+import static com.app.recipefarm.utility.ValidationMethods.validateRecipeImage;
+import static com.app.recipefarm.utility.ValidationMethods.validateServings;
+import static com.app.recipefarm.utility.ValidationMethods.validateTitle;
+
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -14,15 +22,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.recipefarm.R;
 import com.app.recipefarm.RFDataManager;
+import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
+import com.app.recipefarm.models.base.Recipe;
+import com.app.recipefarm.models.base.ValidationModel;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeFormMainFragment extends RFFragment {
 
@@ -31,13 +46,17 @@ public class RecipeFormMainFragment extends RFFragment {
     private ImageView recipeImageView;
     private ImageView cameraIcon;
     private TextView cameraText;
+    private EditText titleField;
+    private EditText descriptionField;
+    private EditText durationField;
+    private EditText servingsField;
+    private Button nextBtn;
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
     public RecipeFormMainFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,10 +70,20 @@ public class RecipeFormMainFragment extends RFFragment {
         cameraText = mainView.findViewById(R.id.recipeFormCameraText);
         cameraText = mainView.findViewById(R.id.recipeFormCameraText);
         recipeImageLayout = mainView.findViewById(R.id.recipeFormImageLayout);
+        titleField = mainView.findViewById(R.id.recipeFormTitle);
+        descriptionField = mainView.findViewById(R.id.recipeFormDescription);
+        durationField = mainView.findViewById(R.id.recipeFormDuration);
+        servingsField = mainView.findViewById(R.id.recipeFormServings);
+        nextBtn = mainView.findViewById(R.id.recipeFormNextBtn);
 
         recipeImageLayout.setOnClickListener(v -> openImagePicker());
+        nextBtn.setOnClickListener(v -> onSelectNext());
 
         initRecipeImage();
+
+        if (RFDataManager.shared().recipeFormHelper.existingRecipe != null) {
+            fillInExistingData();
+        }
 
         return mainView;
     }
@@ -78,6 +107,49 @@ public class RecipeFormMainFragment extends RFFragment {
             updateImageCardStyle();
 
         }
+    }
+
+    private void onSelectNext() {
+        //retrieve edit text value
+        String title =String.valueOf( titleField.getText()).trim();
+        String description =String.valueOf( descriptionField.getText()).trim();
+        String durationStr =String.valueOf( durationField.getText()).trim();
+        String servingsStr =String.valueOf( servingsField.getText()).trim();
+
+        // validate
+        List<ValidationModel> validationList = new ArrayList<>();
+        validationList.add(validateRecipeImage());
+        validationList.add(validateTitle(title));
+        validationList.add(validateDescription(description));
+        validationList.add(validateDuration(durationStr));
+        validationList.add(validateServings(servingsStr));
+        List<ValidationModel> invalidEntries = getInvalidEntries(validationList);
+
+        if (!invalidEntries.isEmpty()){
+            RFDialog dialog = new RFDialog(getContext(), "Error", invalidEntries.get(0).message, null, "Close", null);
+            dialog.show();
+            return;
+        }
+
+        // convert string values to int if needed
+        int duration = Integer.parseInt(durationStr);
+        int servings = Integer.parseInt(servingsStr);
+
+        // save in recipe form helper
+        RFDataManager.shared().recipeFormHelper.recipe.title = title;
+        RFDataManager.shared().recipeFormHelper.recipe.description = description;
+        RFDataManager.shared().recipeFormHelper.recipe.duration = duration;
+        RFDataManager.shared().recipeFormHelper.recipe.servings = servings;
+
+        // navigate to ingredients page
+        navigateToIngredientsPage();
+    }
+
+    private void fillInExistingData() {
+        titleField.setText(RFDataManager.shared().recipeFormHelper.recipe.title);
+        descriptionField.setText(RFDataManager.shared().recipeFormHelper.recipe.description);
+        durationField.setText(RFDataManager.shared().recipeFormHelper.recipe.duration);
+        servingsField.setText(RFDataManager.shared().recipeFormHelper.recipe.servings);
     }
 
     private void initRecipeImage() {
@@ -109,6 +181,11 @@ public class RecipeFormMainFragment extends RFFragment {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private void navigateToIngredientsPage() {
+        RecipeFormIngredientFragment ingredientFragment = new RecipeFormIngredientFragment();
+        navigateToAnotherFragment(ingredientFragment, R.id.recipeFormFrame);
     }
 
 }

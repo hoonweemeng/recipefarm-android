@@ -6,7 +6,7 @@ import com.app.recipefarm.models.base.Recipe;
 
 public class RecipeFormHelper {
     public Recipe existingRecipe = null;
-    public Recipe recipe = null;
+    public Recipe recipe = new Recipe();
     public Uri recipeImageURI = null;
 
 

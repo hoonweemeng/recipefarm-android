@@ -23,6 +23,8 @@ public class Recipe {
     public String userId;
     public int likes;
 
+    public Recipe() {}
+
     public String getDuration() {
         if (duration <= 0) {
             return "0min";

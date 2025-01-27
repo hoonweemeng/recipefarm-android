@@ -29,9 +29,6 @@ public class RecipeFormActivity extends RFActivity {
             return insets;
         });
 
-
-        replaceFragment(new RecipeFormMainFragment(), R.id.recipeFormFrame);
-
         String title = "Create Recipe";
         if (RFDataManager.shared().recipeFormHelper.existingRecipe != null) {
             title = "Update Recipe";
@@ -39,6 +36,8 @@ public class RecipeFormActivity extends RFActivity {
         }
 
         initActionBar(title, true);
+
+        replaceFragment(new RecipeFormMainFragment(), R.id.recipeFormFrame);
 
     }
 
