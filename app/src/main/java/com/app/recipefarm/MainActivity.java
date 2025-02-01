@@ -131,7 +131,7 @@ public class MainActivity extends RFActivity {
                 getHeadersForFirstCall(this),
                 new EmptyRequest(),
                 UserDetailResponse.class,
-                new NetworkManager.ResponseCallback<UserDetailResponse>() {
+                new NetworkManager.ResponseCallback<>() {
                     @Override
                     public void onSuccess(UserDetailResponse response) {
                         loader.hide();

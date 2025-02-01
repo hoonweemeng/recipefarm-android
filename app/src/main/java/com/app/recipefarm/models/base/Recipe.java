@@ -8,23 +8,24 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Recipe {
-    public String recipeId;
-    public String title;
-    public String description;
+    public String recipeId = null;
+    public String title = null;
+    public String description = null;
 
     // in minutes
-    public int duration;
-    public int servings;
+    public int duration = 0;
+    public int servings = 0;
 
     // in stringify json list
-    public String ingredients;
+    public String ingredients = null;
 
     // in stringify json list
-    public String instructions;
-    public String recipeImage;
-    public String timestamp;
-    public String userId;
-    public int likes;
+    public String instructions = null;
+    public String recipeImage = null;
+    public String recipeImageExt = null;
+    public String timestamp  = null;
+    public String userId = null;
+    public int likes = 0;
 
     public Recipe() {}
 

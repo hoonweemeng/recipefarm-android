@@ -1,26 +1,74 @@
 {
   "project_info": {
-    "project_number": "852634456508",
-    "project_id": "recipefarm-bb9ea",
-    "storage_bucket": "recipefarm-bb9ea.firebasestorage.app"
+    "project_number": "890899324334",
+    "firebase_url": "https://recipeheist-ce646-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "recipeheist-ce646",
+    "storage_bucket": "recipeheist-ce646.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:852634456508:android:de36ed6074e2309f509bb9",
+        "mobilesdk_app_id": "1:890899324334:android:e0870c17d2958944333c3f",
         "android_client_info": {
           "package_name": "com.app.recipefarm"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "890899324334-fmvh6guatg5jols42qqvtk1oit6rv034.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAl2n9yaCuY6HW5DmLo1LoV2FnhcENyFao"
+          "current_key": "AIzaSyC_amSFKVXfrhSFQbXmS7Iou3uqxUtYWos"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890899324334-fmvh6guatg5jols42qqvtk1oit6rv034.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890899324334:android:073011313a9a2db7333c3f",
+        "android_client_info": {
+          "package_name": "sg.edu.np.mad.recipeheist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890899324334-ce3tf4egp66kv1a80bfg0luqkbgi6738.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.np.mad.recipeheist",
+            "certificate_hash": "fa78de8b23555302fd02f6878168f28333501482"
+          }
+        },
+        {
+          "client_id": "890899324334-fmvh6guatg5jols42qqvtk1oit6rv034.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_amSFKVXfrhSFQbXmS7Iou3uqxUtYWos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890899324334-fmvh6guatg5jols42qqvtk1oit6rv034.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

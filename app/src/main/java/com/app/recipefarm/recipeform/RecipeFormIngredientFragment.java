@@ -44,7 +44,7 @@ public class RecipeFormIngredientFragment extends RFFragment {
         addBtn = mainView.findViewById(R.id.recipeformIngredientAddBtn);
         ingredientField = mainView.findViewById(R.id.recipeformIngredientField);
 
-        nextBtn.setOnClickListener(v -> navigateToInstructionPage());
+        nextBtn.setOnClickListener(v -> next());
         addBtn.setOnClickListener(v -> onClickAdd());
 
         ingredientList = RFDataManager.shared().recipeFormHelper.recipe.getIngredients();
@@ -81,6 +81,17 @@ public class RecipeFormIngredientFragment extends RFFragment {
 
         //clear text in ingredient field
         ingredientField.setText("");
+    }
+
+    private void next() {
+        // make sure ingredient list is not empty
+        if (ingredientList.isEmpty()){
+            RFDialog dialog = new RFDialog(getContext(), "Error", "Ingredients are required.", null, "Close", null);
+            dialog.show();
+            return;
+        }
+
+        navigateToInstructionPage();
     }
 
 
