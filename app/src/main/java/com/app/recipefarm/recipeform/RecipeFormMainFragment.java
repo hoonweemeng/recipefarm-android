@@ -5,19 +5,16 @@ import static android.app.Activity.RESULT_OK;
 import static com.app.recipefarm.utility.RFFunctions.getInvalidEntries;
 import static com.app.recipefarm.utility.ValidationMethods.validateDescription;
 import static com.app.recipefarm.utility.ValidationMethods.validateDuration;
-import static com.app.recipefarm.utility.ValidationMethods.validateEmailAddress;
 import static com.app.recipefarm.utility.ValidationMethods.validateRecipeImage;
 import static com.app.recipefarm.utility.ValidationMethods.validateServings;
 import static com.app.recipefarm.utility.ValidationMethods.validateTitle;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,10 +29,8 @@ import com.app.recipefarm.R;
 import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
-import com.app.recipefarm.models.base.Recipe;
 import com.app.recipefarm.models.base.ValidationModel;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +69,7 @@ public class RecipeFormMainFragment extends RFFragment {
         descriptionField = mainView.findViewById(R.id.recipeFormDescription);
         durationField = mainView.findViewById(R.id.recipeFormDuration);
         servingsField = mainView.findViewById(R.id.recipeFormServings);
-        nextBtn = mainView.findViewById(R.id.recipeFormNextBtn);
+        nextBtn = mainView.findViewById(R.id.recipeformNextBtn);
 
         recipeImageLayout.setOnClickListener(v -> openImagePicker());
         nextBtn.setOnClickListener(v -> onSelectNext());
@@ -153,12 +148,21 @@ public class RecipeFormMainFragment extends RFFragment {
     }
 
     private void initRecipeImage() {
-        if (RFDataManager.shared().recipeFormHelper.recipe!= null && RFDataManager.shared().recipeFormHelper.recipe.recipeImage != null) {
+        if (RFDataManager.shared().recipeFormHelper.recipeImageURI != null) {
+            // display recently chosen image
             updateImageCardStyle();
+            recipeImageView.setImageURI(RFDataManager.shared().recipeFormHelper.recipeImageURI);
+
+        }
+        else if (RFDataManager.shared().recipeFormHelper.recipe != null && RFDataManager.shared().recipeFormHelper.recipe.recipeImage != null) {
+            // display image from firebase
+            updateImageCardStyle();
+
             // fetch and display image
 
         }
         else {
+            // no image
             cameraText.setTextColor(getContext().getColor(R.color.light_grey));
             cameraIcon.setImageTintList(ColorStateList.valueOf(getContext().getColor(R.color.light_grey)));
             recipeImageOverlay.setVisibility(View.GONE);

@@ -13,5 +13,9 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!--  Customize your theme here.  -->
         <item name="textAllCaps">false</item>
+
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
     </style>
 </resources>

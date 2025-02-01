@@ -1,7 +1,10 @@
 package com.app.recipefarm.models.base;
 
 import static com.app.recipefarm.utility.Constants.RECIPE_IMAGES;
+import static com.app.recipefarm.utility.RFFunctions.jsonToList;
+import static com.app.recipefarm.utility.RFFunctions.listToJson;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Recipe {
@@ -46,6 +49,36 @@ public class Recipe {
         }
 
         return durationString.toString();
+    }
+
+    public ArrayList<String> getIngredients() {
+        ArrayList<String> value = jsonToList(ingredients);
+        if (value == null) {
+            value = new ArrayList<>();
+        }
+        return value;
+    }
+
+    public void setIngredients(ArrayList<String> value) {
+        if (value == null) {
+            value = new ArrayList<>();
+        }
+        this.ingredients = listToJson(value);
+    }
+
+    public ArrayList<String> getInstructions() {
+        ArrayList<String> value = jsonToList(instructions);
+        if (value == null) {
+            value = new ArrayList<>();
+        }
+        return value;
+    }
+
+    public void setInstructions(ArrayList<String> value) {
+        if (value == null) {
+            value = new ArrayList<>();
+        }
+        this.instructions = listToJson(value);
     }
 
     public String getImagePath() {

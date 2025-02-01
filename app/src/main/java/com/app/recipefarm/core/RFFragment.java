@@ -21,9 +21,9 @@ public class RFFragment extends Fragment {
     private TextView pageTitle;
     public RFLoader loader;
 
-    public void showLoader(String message){
+    public void showLoader(String message, boolean isFullScreen){
         loader = new RFLoader(getContext());
-        loader.show(message);
+        loader.show(message, isFullScreen);
     }
 
     public void initActionBar(String title, Boolean requireBackBtn) {

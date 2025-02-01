@@ -1,66 +1,93 @@
 package com.app.recipefarm.recipeform;
 
+import static com.app.recipefarm.utility.RFFunctions.getInvalidEntries;
+import static com.app.recipefarm.utility.ValidationMethods.validateIngredients;
+
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.app.recipefarm.R;
+import com.app.recipefarm.RFDataManager;
+import com.app.recipefarm.core.RFDialog;
+import com.app.recipefarm.core.RFFragment;
+import com.app.recipefarm.models.base.ValidationModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecipeFormIngredientFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class RecipeFormIngredientFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class RecipeFormIngredientFragment extends RFFragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public RecipeFormIngredientFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RecipeFormIngredientFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RecipeFormIngredientFragment newInstance(String param1, String param2) {
-        RecipeFormIngredientFragment fragment = new RecipeFormIngredientFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private RecipeFormAdapter recipeFormAdapter;
+    private RecyclerView recyclerView;
+    private Button nextBtn;
+    private Button addBtn;
+    private EditText ingredientField;
+    private ArrayList<String> ingredientList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_form_ingredient, container, false);
+        mainView = inflater.inflate(R.layout.fragment_recipe_form_ingredient, container, false);
+
+        recyclerView = mainView.findViewById(R.id.recipeFormRV);
+        nextBtn = mainView.findViewById(R.id.recipeformIngredientNextBtn);
+        addBtn = mainView.findViewById(R.id.recipeformIngredientAddBtn);
+        ingredientField = mainView.findViewById(R.id.recipeformIngredientField);
+
+        nextBtn.setOnClickListener(v -> navigateToInstructionPage());
+        addBtn.setOnClickListener(v -> onClickAdd());
+
+        ingredientList = RFDataManager.shared().recipeFormHelper.recipe.getIngredients();
+
+        recipeFormAdapter = new RecipeFormAdapter(getContext(), ingredientList, id -> {
+            // show delete option
+        });
+
+        recyclerView.setAdapter(recipeFormAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        return mainView;
     }
+
+    private void onClickAdd() {
+        String value = String.valueOf(ingredientField.getText());
+        List<ValidationModel> validationList = new ArrayList<>();
+        validationList.add(validateIngredients(value));
+        List<ValidationModel> invalidEntries = getInvalidEntries(validationList);
+
+        if (!invalidEntries.isEmpty()){
+            RFDialog dialog = new RFDialog(getContext(), "Error", invalidEntries.get(0).message, null, "Close", null);
+            dialog.show();
+            return;
+        }
+
+        // save to recipeFormHelper
+        ingredientList.add(value);
+        RFDataManager.shared().recipeFormHelper.recipe.setIngredients(ingredientList);
+
+        // update data in recyclerview
+        recipeFormAdapter.notifyItemInserted(ingredientList.size() - 1);
+
+        //clear text in ingredient field
+        ingredientField.setText("");
+    }
+
+
+    private void navigateToInstructionPage() {
+        RecipeFormInstructionFragment instructionFragment = new RecipeFormInstructionFragment();
+        navigateToAnotherFragment(instructionFragment, R.id.recipeFormFrame);
+    }
+
+
 }

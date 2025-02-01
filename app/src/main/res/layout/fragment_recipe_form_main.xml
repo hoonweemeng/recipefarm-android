@@ -227,12 +227,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <Button
-                    android:id="@+id/recipeFormNextBtn"
+                    android:id="@+id/recipeformNextBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:padding="8dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="Next" />
+                    android:textSize="16sp"
+                    android:text="Next"/>
 
             </LinearLayout>
 

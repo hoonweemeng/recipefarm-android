@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.app.recipefarm.R;
 
 public class RFLoader {
 
+    private View view;
     private Dialog dialog;
     private ProgressBar progressBar;
 
@@ -26,7 +28,7 @@ public class RFLoader {
 
     private void initLoader() {
         // Inflate the custom loader layout
-        View view = LayoutInflater.from(dialog.getContext()).inflate(R.layout.layout_rf_loader, null);
+        view = LayoutInflater.from(dialog.getContext()).inflate(R.layout.layout_rf_loader, null);
 
         // Configure the dialog
         dialog.setContentView(view);
@@ -41,7 +43,13 @@ public class RFLoader {
     }
 
     // Show the loader
-    public void show(String message) {
+    public void show(String message, boolean isFullScreen) {
+        // Set full-screen if enabled
+        if (isFullScreen) {
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        } else {
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        }
         // Set the message if provided
         if (message != null) {
             TextView tvMessage = dialog.findViewById(R.id.tvLoaderMessage);

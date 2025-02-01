@@ -13,13 +13,29 @@ import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.models.base.ValidationModel;
 import com.app.recipefarm.models.response.generic.RFResponse;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RFFunctions {
+
+    public static ArrayList<String> jsonToList(String jsonString) {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(jsonString, listType);
+    }
+
+    public static String listToJson(ArrayList<String> list) {
+        Gson gson = new Gson();
+        return gson.toJson(list);
+    }
+
 
     public static void logout(Activity activity) {
         // clear all data

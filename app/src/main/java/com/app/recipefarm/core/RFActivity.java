@@ -1,9 +1,12 @@
 package com.app.recipefarm.core;
 
+import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -18,9 +21,15 @@ public class RFActivity extends AppCompatActivity {
 
     public RFLoader loader;
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
+
     public void showLoader(String message){
         loader = new RFLoader(this);
-        loader.show(message);
+        loader.show(message, true);
     }
 
     public void initActionBar(String title, Boolean requireBackBtn) {

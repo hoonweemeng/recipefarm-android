@@ -20,11 +20,6 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder
     private ArrayList<ActionViewModel> actionList;
     private ActionListener listener;
 
-    // Interface for callbacks
-    public interface ActionListener {
-        void onSelect(int id);
-    }
-
     public ActionAdapter(Context context, ArrayList<ActionViewModel> actionList, ActionListener listener) {
         this.context = context;
         this.actionList = actionList;

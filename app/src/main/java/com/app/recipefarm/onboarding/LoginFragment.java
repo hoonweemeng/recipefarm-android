@@ -79,7 +79,7 @@ public class LoginFragment extends RFFragment {
 
         UserLoginRequest userLoginRequest = new UserLoginRequest(inputEmailAddress, inputPassword);
 
-        showLoader(null);
+        showLoader(null, false);
         //send request
         NetworkManager.getInstance(getContext()).post(
                 loginUserEndpoint,

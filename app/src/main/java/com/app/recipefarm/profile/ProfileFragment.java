@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.recipefarm.R;
 import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.action.ActionAdapter;
+import com.app.recipefarm.action.ActionListener;
 import com.app.recipefarm.action.viewmodels.ActionViewModel;
 import com.app.recipefarm.core.RFFragment;
 import com.app.recipefarm.recipeform.RecipeFormActivity;
@@ -66,7 +67,7 @@ public class ProfileFragment extends RFFragment {
                     .into(profileImage);
         }
 
-        actionAdapter = new ActionAdapter(getContext(), actionList, new ActionAdapter.ActionListener() {
+        actionAdapter = new ActionAdapter(getContext(), actionList, new ActionListener() {
             @Override
             public void onSelect(int id) {
                 // when an action is click

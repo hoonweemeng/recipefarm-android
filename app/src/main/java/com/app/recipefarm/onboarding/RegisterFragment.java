@@ -113,7 +113,7 @@ public class RegisterFragment extends RFFragment {
         User user = new User(null, inputEmailAddress, inputUsername, inputPassword, null, null, null);
 
 
-        showLoader(null);
+        showLoader(null,false);
         //send request
         NetworkManager.getInstance(getContext()).post(
                 registerUserEndpoint,
