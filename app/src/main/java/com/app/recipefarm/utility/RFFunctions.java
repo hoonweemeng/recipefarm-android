@@ -11,8 +11,8 @@ import android.content.Intent;
 import com.app.recipefarm.MainActivity;
 import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
-import com.app.recipefarm.models.base.ValidationModel;
-import com.app.recipefarm.models.response.generic.RFResponse;
+import com.app.recipefarm.model.base.ValidationModel;
+import com.app.recipefarm.model.response.generic.RFResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -86,16 +86,7 @@ public class RFFunctions {
                 .collect(Collectors.toList());
     }
 
-    public static Map<String,String> getHeaders() {
-        String userId =  RFDataManager.shared().user.userId;
-        Map<String,String> map = new HashMap<>();
-        if (userId != null || !userId.isBlank()) {
-            map.put(USERID,userId);
-        }
-        return map;
-    }
-
-    public static Map<String,String> getHeadersForFirstCall(Context context) {
+    public static Map<String,String> getHeaders(Context context) {
         String userId =  SharedPrefsManager.shared(context).getData(USERID, String.class);
         Map<String,String> map = new HashMap<>();
         if (userId != null || !userId.isBlank()) {

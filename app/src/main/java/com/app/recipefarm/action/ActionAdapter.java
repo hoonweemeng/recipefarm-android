@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 
 public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder> {
-    private Context context;
-    private ArrayList<ActionViewModel> actionList;
-    private ActionListener listener;
+    private final Context context;
+    private final ArrayList<ActionViewModel> actionList;
+    private final ActionListener listener;
 
     public ActionAdapter(Context context, ArrayList<ActionViewModel> actionList, ActionListener listener) {
         this.context = context;

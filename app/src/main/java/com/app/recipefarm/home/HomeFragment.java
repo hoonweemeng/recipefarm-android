@@ -1,5 +1,7 @@
 package com.app.recipefarm.home;
 
+import static com.app.recipefarm.utility.Constants.latestRecipeEndpoint;
+
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -23,4 +25,16 @@ public class HomeFragment extends BrowseFragment {
        initActionBar("Home", false);
         return mainView;
     }
+
+    @Override
+    public String getRecipeListRequestUrl() {
+        return latestRecipeEndpoint;
+    }
+
+    @Override
+    public void onSelectRecipe(String recipeId) {
+
+    }
+
+
 }

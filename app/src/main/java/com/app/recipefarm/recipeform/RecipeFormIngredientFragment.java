@@ -5,7 +5,6 @@ import static com.app.recipefarm.utility.ValidationMethods.validateIngredients;
 
 import android.os.Bundle;
 
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +18,7 @@ import com.app.recipefarm.R;
 import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
-import com.app.recipefarm.models.base.ValidationModel;
+import com.app.recipefarm.model.base.ValidationModel;
 
 import java.util.ArrayList;
 import java.util.List;

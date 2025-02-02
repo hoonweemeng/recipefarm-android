@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.recipefarm.R;
-import com.app.recipefarm.models.base.Recipe;
+import com.app.recipefarm.model.base.Recipe;
 import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -19,9 +19,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder> {
-    private Context context;
-    private ArrayList<Recipe> recipeList;
-    private OnSelectRecipeListener onSelectRecipeListener;
+    private final Context context;
+    private final ArrayList<Recipe> recipeList;
+    private final OnSelectRecipeListener onSelectRecipeListener;
 
     // Interface for callbacks
     public interface OnSelectRecipeListener {
@@ -50,10 +50,10 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
         holder.tvTitle.setText(recipe.title);
         holder.tvDuration.setText(recipe.getDuration());
 
-        // get image from firebase and set it to imageview
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference(recipe.getImagePath());
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference(recipe.getImagePath());
+
         Glide.with(context)
-                .load(storageReference)
+                .load(storageRef)
                 .into(holder.ivImage);
 
         // callback when recipeCard is clicked

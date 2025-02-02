@@ -17,7 +17,7 @@ import com.app.recipefarm.R;
 public class RFLoader {
 
     private View view;
-    private Dialog dialog;
+    private final Dialog dialog;
     private ProgressBar progressBar;
 
     // Constructor

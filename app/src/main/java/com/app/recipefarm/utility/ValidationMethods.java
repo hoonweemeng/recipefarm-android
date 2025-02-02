@@ -3,7 +3,7 @@ package com.app.recipefarm.utility;
 import static com.app.recipefarm.utility.RFFunctions.isNullOrBlank;
 
 import com.app.recipefarm.RFDataManager;
-import com.app.recipefarm.models.base.ValidationModel;
+import com.app.recipefarm.model.base.ValidationModel;
 
 import java.util.regex.Pattern;
 

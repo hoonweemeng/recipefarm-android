@@ -1,6 +1,6 @@
-package com.app.recipefarm.models.response.generic;
+package com.app.recipefarm.model.response.generic;
 
-import com.app.recipefarm.models.base.ValidationModel;
+import com.app.recipefarm.model.base.ValidationModel;
 
 import java.util.List;
 

@@ -22,9 +22,9 @@ import android.widget.EditText;
 import com.app.recipefarm.R;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
-import com.app.recipefarm.models.base.User;
-import com.app.recipefarm.models.base.ValidationModel;
-import com.app.recipefarm.models.response.user.UserRegisterResponse;
+import com.app.recipefarm.model.base.User;
+import com.app.recipefarm.model.base.ValidationModel;
+import com.app.recipefarm.model.response.user.UserRegisterResponse;
 import com.app.recipefarm.utility.NetworkManager;
 import com.app.recipefarm.utility.SharedPrefsManager;
 

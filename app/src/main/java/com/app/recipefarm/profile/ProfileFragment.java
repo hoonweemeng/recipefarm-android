@@ -33,7 +33,7 @@ public class ProfileFragment extends RFFragment {
     private TextView tvUsername;
     private ImageView profileImage;
     private RecyclerView actionRecyclerView;
-    private ArrayList<ActionViewModel> actionList;
+    private final ArrayList<ActionViewModel> actionList;
     private ActionAdapter actionAdapter;
 
 
@@ -54,7 +54,7 @@ public class ProfileFragment extends RFFragment {
 
         tvUsername = mainView.findViewById(R.id.profileUsername);
         profileImage = mainView.findViewById(R.id.profileImageView);
-        actionRecyclerView = mainView.findViewById(R.id.profileActionRv);
+        actionRecyclerView = mainView.findViewById(R.id.brosweRecyclerView);
 
         tvUsername.setText(RFDataManager.shared().user.username);
 

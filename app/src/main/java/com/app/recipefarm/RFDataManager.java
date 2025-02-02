@@ -1,7 +1,5 @@
 package com.app.recipefarm;
 
-import com.app.recipefarm.models.base.User;
-
 public class RFDataManager {
     private RFDataManager() {}
 

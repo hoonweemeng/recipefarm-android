@@ -1,4 +1,4 @@
-package com.app.recipefarm.models.request.user;
+package com.app.recipefarm.model.request.user;
 
 public class UserLoginRequest {
     public String email;

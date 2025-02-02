@@ -29,7 +29,7 @@ import com.app.recipefarm.R;
 import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
-import com.app.recipefarm.models.base.ValidationModel;
+import com.app.recipefarm.model.base.ValidationModel;
 
 import java.util.ArrayList;
 import java.util.List;

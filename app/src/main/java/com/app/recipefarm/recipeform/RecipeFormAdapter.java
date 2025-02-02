@@ -13,9 +13,9 @@ import com.app.recipefarm.R;
 
 import java.util.ArrayList;
 public class RecipeFormAdapter extends RecyclerView.Adapter<RecipeFormAdapter.ViewHolder> {
-    private Context context;
-    private ArrayList<String> itemList;
-    private ActionListener listener;
+    private final Context context;
+    private final ArrayList<String> itemList;
+    private final ActionListener listener;
 
     // Interface for callbacks
     public interface ActionListener {

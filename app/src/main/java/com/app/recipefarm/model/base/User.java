@@ -1,4 +1,4 @@
-package com.app.recipefarm.models.base;
+package com.app.recipefarm.model.base;
 
 public class User {
     public String userId;

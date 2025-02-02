@@ -2,7 +2,7 @@ package com.app.recipefarm;
 
 import static com.app.recipefarm.utility.Constants.USERID;
 import static com.app.recipefarm.utility.Constants.detailUserEndpoint;
-import static com.app.recipefarm.utility.RFFunctions.getHeadersForFirstCall;
+import static com.app.recipefarm.utility.RFFunctions.getHeaders;
 import static com.app.recipefarm.utility.RFFunctions.isNullOrBlank;
 import static com.app.recipefarm.utility.RFFunctions.isResponseSuccessful;
 import static com.app.recipefarm.utility.RFFunctions.responseErrorHandler;
@@ -20,15 +20,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.app.recipefarm.core.RFActivity;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.home.HomeFragment;
 import com.app.recipefarm.profile.ProfileFragment;
-import com.app.recipefarm.models.request.generic.EmptyRequest;
-import com.app.recipefarm.models.response.user.UserDetailResponse;
+import com.app.recipefarm.model.request.generic.EmptyRequest;
+import com.app.recipefarm.model.response.user.UserDetailResponse;
 import com.app.recipefarm.onboarding.GetStartedFragment;
 import com.app.recipefarm.utility.NetworkManager;
 import com.app.recipefarm.utility.SharedPrefsManager;
@@ -128,7 +126,7 @@ public class MainActivity extends RFActivity {
         //send request
         NetworkManager.getInstance(this).post(
                 detailUserEndpoint,
-                getHeadersForFirstCall(this),
+                getHeaders(this),
                 new EmptyRequest(),
                 UserDetailResponse.class,
                 new NetworkManager.ResponseCallback<>() {

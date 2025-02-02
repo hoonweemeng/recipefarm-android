@@ -13,11 +13,11 @@ import com.app.recipefarm.R;
 
 public class RFDialog extends Dialog {
 
-    private String title;
-    private String body;
-    private String posBtnText;
-    private String negBtnText;
-    private OnDialogActionListener actionListener;
+    private final String title;
+    private final String body;
+    private final String posBtnText;
+    private final String negBtnText;
+    private final OnDialogActionListener actionListener;
 
     // Interface for callbacks
     public interface OnDialogActionListener {

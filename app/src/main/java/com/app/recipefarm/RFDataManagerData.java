@@ -1,6 +1,6 @@
 package com.app.recipefarm;
 
-import com.app.recipefarm.models.base.User;
+import com.app.recipefarm.model.base.User;
 import com.app.recipefarm.recipeform.RecipeFormHelper;
 
 public class RFDataManagerData{

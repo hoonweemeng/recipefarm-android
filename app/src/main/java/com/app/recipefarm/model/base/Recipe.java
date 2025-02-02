@@ -1,11 +1,10 @@
-package com.app.recipefarm.models.base;
+package com.app.recipefarm.model.base;
 
 import static com.app.recipefarm.utility.Constants.RECIPE_IMAGES;
 import static com.app.recipefarm.utility.RFFunctions.jsonToList;
 import static com.app.recipefarm.utility.RFFunctions.listToJson;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Recipe {
     public String recipeId = null;
@@ -23,7 +22,7 @@ public class Recipe {
     public String instructions = null;
     public String recipeImage = null;
     public String recipeImageExt = null;
-    public String timestamp  = null;
+    //public String timestamp  = null;
     public String userId = null;
     public int likes = 0;
 
@@ -83,6 +82,6 @@ public class Recipe {
     }
 
     public String getImagePath() {
-        return RECIPE_IMAGES + "/" + recipeImage;
+        return RECIPE_IMAGES + "/" + recipeImage + "." + recipeImageExt;
     }
 }

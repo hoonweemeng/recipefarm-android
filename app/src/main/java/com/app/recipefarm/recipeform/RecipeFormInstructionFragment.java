@@ -26,9 +26,8 @@ import com.app.recipefarm.R;
 import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
-import com.app.recipefarm.models.base.Recipe;
-import com.app.recipefarm.models.base.ValidationModel;
-import com.app.recipefarm.models.response.recipe.RecipeFormResponse;
+import com.app.recipefarm.model.base.ValidationModel;
+import com.app.recipefarm.model.response.recipe.RecipeFormResponse;
 import com.app.recipefarm.utility.NetworkManager;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -165,7 +164,7 @@ public class RecipeFormInstructionFragment extends RFFragment {
             // create
             NetworkManager.getInstance(getContext()).post(
                     createRecipeEndpoint,
-                    getHeaders(),
+                    getHeaders(getContext()),
                     RFDataManager.shared().recipeFormHelper.recipe,
                     RecipeFormResponse.class,
                     new NetworkManager.ResponseCallback<RecipeFormResponse>() {
@@ -188,7 +187,7 @@ public class RecipeFormInstructionFragment extends RFFragment {
             // update
             NetworkManager.getInstance(getContext()).post(
                     updateRecipeEndpoint,
-                    getHeaders(),
+                    getHeaders(getContext()),
                     RFDataManager.shared().recipeFormHelper.recipe,
                     RecipeFormResponse.class,
                     new NetworkManager.ResponseCallback<>() {

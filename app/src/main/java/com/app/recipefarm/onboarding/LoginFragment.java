@@ -10,8 +10,6 @@ import static com.app.recipefarm.utility.ValidationMethods.validateEmailAddress;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +22,9 @@ import com.app.recipefarm.R;
 import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
-import com.app.recipefarm.models.base.ValidationModel;
-import com.app.recipefarm.models.request.user.UserLoginRequest;
-import com.app.recipefarm.models.response.user.UserDetailResponse;
+import com.app.recipefarm.model.base.ValidationModel;
+import com.app.recipefarm.model.request.user.UserLoginRequest;
+import com.app.recipefarm.model.response.user.UserDetailResponse;
 import com.app.recipefarm.utility.NetworkManager;
 import com.app.recipefarm.utility.SharedPrefsManager;
 
