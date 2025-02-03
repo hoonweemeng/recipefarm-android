@@ -212,14 +212,14 @@ public class MainActivity extends RFActivity {
         int selectedTabColor = R.color.cadet_blue;
         if (selectedTab.equals(navHome)) {
             changeTabButtonColor(iconHome, textHome, selectedTabColor);
-            replaceFragment(homeFragment, R.id.mainbody_frame);
+            switchFragments(homeFragment, R.id.mainbody_frame);
 
         } else if (selectedTab.equals(navBookmarks)) {
             changeTabButtonColor(iconBookmarks, textBookmarks, selectedTabColor);
 
         } else if (selectedTab.equals(navProfile)) {
             changeTabButtonColor(iconProfile, textProfile, selectedTabColor);
-            replaceFragment(profileFragment, R.id.mainbody_frame);
+            switchFragments(profileFragment, R.id.mainbody_frame);
         }
     }
 

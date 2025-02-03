@@ -59,4 +59,32 @@ public class RFActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    // used when switching screen without back stack
+    // use case: switch fragments with bottom nav
+    public void switchFragments(Fragment newFragment, int frame) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        boolean fragmentExists = false;
+
+        // Loop through all added fragments
+        for (Fragment fragment : fm.getFragments()) {
+            if (fragment.getClass().equals(newFragment.getClass())) {
+                // Show if it's the same type as the new fragment
+                ft.show(fragment);
+                fragmentExists = true;
+            } else {
+                // Hide all other fragments
+                ft.hide(fragment);
+            }
+        }
+
+        // Add the fragment only if it doesn't exist
+        if (!fragmentExists) {
+            ft.add(frame, newFragment);
+        }
+
+        ft.commit();
+    }
+
 }

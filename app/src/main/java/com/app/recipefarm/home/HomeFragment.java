@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.app.recipefarm.R;
 import com.app.recipefarm.browse.BrowseFragment;
 
@@ -18,12 +21,9 @@ public class HomeFragment extends BrowseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-       super.onCreateView(inflater,container,savedInstanceState);
-
-       initActionBar("Home", false);
-        return mainView;
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initActionBar("Home", false);
     }
 
     @Override

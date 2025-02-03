@@ -11,7 +11,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,8 +22,8 @@
                 android:id="@+id/recipeCardImage"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                app:srcCompat="@drawable/profile_picture"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/profile_picture" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
