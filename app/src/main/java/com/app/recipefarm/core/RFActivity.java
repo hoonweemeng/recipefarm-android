@@ -60,6 +60,7 @@ public class RFActivity extends AppCompatActivity {
     }
 
     // used when switching screen without back stack
+    // cannot switch between same type of fragment (i.e. cannot have two HomeFragment in transaction manager)
     // use case: switch fragments with bottom nav
     public void switchFragments(Fragment newFragment, int frame) {
         FragmentManager fm = getSupportFragmentManager();
@@ -69,10 +70,16 @@ public class RFActivity extends AppCompatActivity {
 
         // Loop through all added fragments
         for (Fragment fragment : fm.getFragments()) {
-            if (fragment.getClass().equals(newFragment.getClass())) {
-                // Show if it's the same type as the new fragment
+
+            // Check if fragment is the exact same obj
+            if (fragment.equals(newFragment)) {
+                // Show if same fragment
                 ft.show(fragment);
                 fragmentExists = true;
+            }
+            else if (fragment.getClass().equals(newFragment.getClass())) {
+                // if fragment is same type, remove it so it can be replaced
+                ft.remove(fragment);
             } else {
                 // Hide all other fragments
                 ft.hide(fragment);
