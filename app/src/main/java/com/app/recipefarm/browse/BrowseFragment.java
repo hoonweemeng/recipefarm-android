@@ -7,11 +7,13 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.app.recipefarm.R;
 import com.app.recipefarm.browse.viewmodel.FetchRecipesViewModel;
@@ -30,6 +32,7 @@ public class BrowseFragment extends RFFragment {
     public RecyclerView recyclerView;
     public BrowseAdapter browseAdapter;
     public FetchRecipesViewModel fetchRecipesViewModel;
+    public SwipeRefreshLayout swipeRefreshLayout;
 
     public BrowseFragment() {
         // Required empty public constructor
@@ -39,21 +42,10 @@ public class BrowseFragment extends RFFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_browse, container, false);
-
+        swipeRefreshLayout = mainView.findViewById(R.id.browseSwipeRefresh);
         nestedSv = mainView.findViewById(R.id.browseNestedSv);
         progressBar = mainView.findViewById(R.id.browseLoading);
         recyclerView = mainView.findViewById(R.id.brosweRecyclerView);
-
-        initFetchViewModel();
-        recipeList = fetchRecipesViewModel.recipeList;
-
-        browseAdapter = new BrowseAdapter(getContext(), recipeList, recipeId -> {
-            onSelectRecipe(recipeId);
-        });
-
-        int numberOfColumns = 2; // Change this for different column counts
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
-        recyclerView.setAdapter(browseAdapter);
 
         //to check if user reached the bottom
         nestedSv.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (scrollView, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -71,7 +63,16 @@ public class BrowseFragment extends RFFragment {
             }
         });
 
-        fetchRecipes();
+        //refresh page by using Init()
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+                refreshData();
+            }
+        });
+
+        refreshData();
         return mainView;
     }
 
@@ -83,6 +84,23 @@ public class BrowseFragment extends RFFragment {
     // to be overridden
     public void onSelectRecipe(String recipeId) {}
 
+    // refresh data
+    public void refreshData() {
+
+        initFetchViewModel();
+        recipeList = fetchRecipesViewModel.recipeList;
+
+        browseAdapter = new BrowseAdapter(getContext(), recipeList, recipeId -> {
+            onSelectRecipe(recipeId);
+        });
+
+        int numberOfColumns = 2; // Change this for different column counts
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
+        recyclerView.setAdapter(browseAdapter);
+
+        fetchRecipes();
+    }
+
     public void fetchRecipes() {
         progressBar.setVisibility(View.VISIBLE);
         fetchRecipesViewModel.fetchRecipes();
@@ -90,14 +108,15 @@ public class BrowseFragment extends RFFragment {
 
     public void initFetchViewModel() {
         fetchRecipesViewModel = new FetchRecipesViewModel(getContext(), getRecipeListRequestUrl(), success -> {
-            // hide progress bar
-            progressBar.setVisibility(View.GONE);
 
             // handle response
             if (success) {
                 handleSuccessfulResponse();
             }
             else {
+
+                // hide progress bar
+                progressBar.setVisibility(View.GONE);
 
                 // show error message
                 RFDialog dialog = new RFDialog(getContext(), "Error", "Failed to load recipes", "Retry", "Close", new RFDialog.OnDialogActionListener() {
@@ -116,9 +135,13 @@ public class BrowseFragment extends RFFragment {
 
     public void handleSuccessfulResponse() {
         int noOfItemAffected = fetchRecipesViewModel.recipeListResponse.data.size();
-
-
         // update recyclerView
         browseAdapter.notifyItemRangeChanged(recipeList.size() - noOfItemAffected, noOfItemAffected);
+
+        // if is last page
+        if (fetchRecipesViewModel.onLastPage) {
+            // hide progress bar
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

@@ -1,7 +1,6 @@
 [versions]
 agp = "8.7.3"
 firebaseUiStorage = "8.0.2"
-firebaseUiStorageVersion = "8.0.2"
 glide = "4.16.0"
 glideVersion = "4.16.0"
 googleServices = "4.4.2"
@@ -14,6 +13,7 @@ material = "1.12.0"
 activity = "1.10.0"
 constraintlayout = "2.2.0"
 materialVersion = "1.12.0"
+swiperefreshlayout = "1.1.0"
 volley = "1.2.1"
 googleGmsGoogleServices = "4.4.2"
 firebaseStorage = "21.0.1"
@@ -34,6 +34,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-v100 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
