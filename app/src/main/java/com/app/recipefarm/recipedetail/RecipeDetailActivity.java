@@ -104,6 +104,7 @@ public class RecipeDetailActivity extends RFActivity {
         };
 
         bookmarkBtn.setOnClickListener(v -> {
+            showLoader(null, false);
             if (bookmark == null) {
                 addBookmark();
             }
@@ -162,12 +163,11 @@ public class RecipeDetailActivity extends RFActivity {
     }
 
     public void removeBookmark() {
-        bookmarkBtn.setEnabled(false);
         Context context = this;
         NetworkManager.getInstance(this).post(deleteBookmarkEndpoint, getHeaders(this), new IdModel(bookmark.bookmarkId), RFResponse.class, new NetworkManager.ResponseCallback<>() {
             @Override
             public void onSuccess(RFResponse response) {
-                bookmarkBtn.setEnabled(true);
+                loader.hide();
                 if (isResponseSuccessful(response)) {
                     bookmark = null;
                     setBookmarkBtnStyle();
@@ -180,7 +180,7 @@ public class RecipeDetailActivity extends RFActivity {
 
             @Override
             public void onError(String error) {
-                bookmarkBtn.setEnabled(true);
+                loader.hide();
                 RFDialog dialog = new RFDialog(context, "Error", "Unable to delete bookmark.", null, "Close", null);
                 dialog.show();
             }
@@ -188,13 +188,12 @@ public class RecipeDetailActivity extends RFActivity {
     }
 
     public void addBookmark() {
-        bookmarkBtn.setEnabled(false);
         Context context = this;
         NetworkManager.getInstance(this).post(createBookmarkEndpoint, getHeaders(this), new IdModel(recipe.recipeId), BookmarkDetailResponse.class, new NetworkManager.ResponseCallback<>() {
 
             @Override
             public void onSuccess(BookmarkDetailResponse response) {
-                bookmarkBtn.setEnabled(true);
+                loader.hide();
                 if (isResponseSuccessful(response)) {
                     bookmark = response.data;
                     setBookmarkBtnStyle();
@@ -207,7 +206,7 @@ public class RecipeDetailActivity extends RFActivity {
 
             @Override
             public void onError(String error) {
-                bookmarkBtn.setEnabled(true);
+                loader.hide();
                 RFDialog dialog = new RFDialog(context, "Error", "Unable to add bookmark.", null, "Close", null);
                 dialog.show();
             }
