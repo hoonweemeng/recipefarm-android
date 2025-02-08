@@ -22,7 +22,7 @@ public class Recipe {
     public String instructions = null;
     public String recipeImage = null;
     public String recipeImageExt = null;
-    //public String timestamp  = null;
+    public String timestamp  = null;
     public String userId = null;
     public int likes = 0;
 
@@ -30,7 +30,7 @@ public class Recipe {
 
     public String getDuration() {
         if (duration <= 0) {
-            return "0min";
+            return "0 min";
         }
 
         int hours = duration / 60;
@@ -39,13 +39,13 @@ public class Recipe {
         StringBuilder durationString = new StringBuilder();
 
         if (hours > 0) {
-            durationString.append(hours).append("h");
+            durationString.append(hours).append(" ").append("h");
         }
         if (minutes > 0) {
             if (hours > 0) {
                 durationString.append(" ");
             }
-            durationString.append(minutes).append("min");
+            durationString.append(minutes).append(" ").append("min");
         }
 
         return durationString.toString();

@@ -25,7 +25,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
     // Interface for callbacks
     public interface OnSelectRecipeListener {
-        void onSelect(String recipeId);
+        void onSelect(Recipe recipe);
     }
 
     public BrowseAdapter(Context context, ArrayList<Recipe> recipeList, OnSelectRecipeListener onSelectRecipeListener) {
@@ -57,7 +57,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
                 .into(holder.ivImage);
 
         // callback when recipeCard is clicked
-        holder.itemView.setOnClickListener(v -> onSelectRecipeListener.onSelect(recipe.recipeId));
+        holder.itemView.setOnClickListener(v -> onSelectRecipeListener.onSelect(recipe));
 
     }
 

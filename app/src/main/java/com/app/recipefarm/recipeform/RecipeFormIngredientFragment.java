@@ -19,13 +19,14 @@ import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
 import com.app.recipefarm.model.base.ValidationModel;
+import com.app.recipefarm.recipedetail.RecipeDetailAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeFormIngredientFragment extends RFFragment {
 
-    private RecipeFormAdapter recipeFormAdapter;
+    private RecipeDetailAdapter recipeDetailAdapter;
     private RecyclerView recyclerView;
     private Button nextBtn;
     private Button addBtn;
@@ -48,11 +49,11 @@ public class RecipeFormIngredientFragment extends RFFragment {
 
         ingredientList = RFDataManager.shared().recipeFormHelper.recipe.getIngredients();
 
-        recipeFormAdapter = new RecipeFormAdapter(getContext(), ingredientList, id -> {
+        recipeDetailAdapter = new RecipeDetailAdapter(getContext(), ingredientList, id -> {
             // show delete option
         });
 
-        recyclerView.setAdapter(recipeFormAdapter);
+        recyclerView.setAdapter(recipeDetailAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
@@ -76,7 +77,7 @@ public class RecipeFormIngredientFragment extends RFFragment {
         RFDataManager.shared().recipeFormHelper.recipe.setIngredients(ingredientList);
 
         // update data in recyclerview
-        recipeFormAdapter.notifyItemInserted(ingredientList.size() - 1);
+        recipeDetailAdapter.notifyItemInserted(ingredientList.size() - 1);
 
         //clear text in ingredient field
         ingredientField.setText("");

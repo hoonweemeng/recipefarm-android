@@ -28,6 +28,7 @@ import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
 import com.app.recipefarm.model.base.ValidationModel;
 import com.app.recipefarm.model.response.recipe.RecipeFormResponse;
+import com.app.recipefarm.recipedetail.RecipeDetailAdapter;
 import com.app.recipefarm.utility.NetworkManager;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -41,7 +42,7 @@ public class RecipeFormInstructionFragment extends RFFragment {
     private FirebaseStorage storage;
     private StorageReference storageRef;
 
-    private RecipeFormAdapter recipeFormAdapter;
+    private RecipeDetailAdapter recipeDetailAdapter;
     private RecyclerView recyclerView;
     private Button submitBtn;
     private Button addBtn;
@@ -73,11 +74,11 @@ public class RecipeFormInstructionFragment extends RFFragment {
 
         instructionList = RFDataManager.shared().recipeFormHelper.recipe.getInstructions();
 
-        recipeFormAdapter = new RecipeFormAdapter(getContext(), instructionList, id -> {
+        recipeDetailAdapter = new RecipeDetailAdapter(getContext(), instructionList, id -> {
             // show delete option
         });
 
-        recyclerView.setAdapter(recipeFormAdapter);
+        recyclerView.setAdapter(recipeDetailAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
@@ -102,7 +103,7 @@ public class RecipeFormInstructionFragment extends RFFragment {
         RFDataManager.shared().recipeFormHelper.recipe.setInstructions(instructionList);
 
         // update data in recyclerview
-        recipeFormAdapter.notifyItemInserted(instructionList.size() - 1);
+        recipeDetailAdapter.notifyItemInserted(instructionList.size() - 1);
 
         //clear text in instruction field
         instructionField.setText("");

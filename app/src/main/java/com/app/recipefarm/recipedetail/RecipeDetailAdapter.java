@@ -1,4 +1,4 @@
-package com.app.recipefarm.recipeform;
+package com.app.recipefarm.recipedetail;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.recipefarm.R;
 
 import java.util.ArrayList;
-public class RecipeFormAdapter extends RecyclerView.Adapter<RecipeFormAdapter.ViewHolder> {
+public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapter.ViewHolder> {
     private final Context context;
     private final ArrayList<String> itemList;
     private final ActionListener listener;
@@ -22,7 +22,7 @@ public class RecipeFormAdapter extends RecyclerView.Adapter<RecipeFormAdapter.Vi
         void onSelect(int id);
     }
 
-    public RecipeFormAdapter(Context context, ArrayList<String> itemList, ActionListener listener) {
+    public RecipeDetailAdapter(Context context, ArrayList<String> itemList, ActionListener listener) {
         this.context = context;
         this.itemList = itemList;
         this.listener = listener;
@@ -30,14 +30,14 @@ public class RecipeFormAdapter extends RecyclerView.Adapter<RecipeFormAdapter.Vi
 
     @NonNull
     @Override
-    public RecipeFormAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecipeDetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.layout_recipeform_card, parent,false);
-        return new RecipeFormAdapter.ViewHolder(view);
+        View view = inflater.inflate(R.layout.layout_recipedetail_card, parent,false);
+        return new RecipeDetailAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeFormAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecipeDetailAdapter.ViewHolder holder, int position) {
         String detail = itemList.get(position);
 
         // set textview text
@@ -45,7 +45,9 @@ public class RecipeFormAdapter extends RecyclerView.Adapter<RecipeFormAdapter.Vi
         holder.tvDetail.setText(detail);
 
         // callback when actionCard is clicked
-        holder.itemView.setOnClickListener(v -> listener.onSelect(position));
+        if (listener != null) {
+            holder.itemView.setOnClickListener(v -> listener.onSelect(position));
+        }
     }
 
     @Override

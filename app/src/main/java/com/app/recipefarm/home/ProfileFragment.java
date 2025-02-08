@@ -1,6 +1,4 @@
-package com.app.recipefarm.profile;
-
-import static com.app.recipefarm.utility.RFFunctions.getProfileImagePath;
+package com.app.recipefarm.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,7 +51,7 @@ public class ProfileFragment extends RFFragment {
         mainView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         tvUsername = mainView.findViewById(R.id.profileUsername);
-        profileImage = mainView.findViewById(R.id.profileImageView);
+        profileImage = mainView.findViewById(R.id.recipeDetailUserImage);
         actionRecyclerView = mainView.findViewById(R.id.brosweRecyclerView);
 
         tvUsername.setText(RFDataManager.shared().user.username);
@@ -61,7 +59,7 @@ public class ProfileFragment extends RFFragment {
         // load profile image if it exist
         if (RFDataManager.shared().user.profileImage != null) {
             // get image from firebase and set it to imageview
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference(getProfileImagePath(RFDataManager.shared().user.profileImage));
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference(RFDataManager.shared().user.getImagePath());
             Glide.with(getContext())
                     .load(storageReference)
                     .into(profileImage);

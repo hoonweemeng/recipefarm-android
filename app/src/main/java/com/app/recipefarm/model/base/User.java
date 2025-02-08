@@ -1,5 +1,7 @@
 package com.app.recipefarm.model.base;
 
+import static com.app.recipefarm.utility.Constants.PROFILE_IMAGES;
+
 public class User {
     public String userId;
     public String email;
@@ -17,5 +19,9 @@ public class User {
         this.bio = bio;
         this.profileImage = profileImage;
         this.profileImageExt = profileImageExt;
+    }
+
+    public String getImagePath() {
+        return PROFILE_IMAGES + "/" + profileImage + "." + profileImageExt;
     }
 }

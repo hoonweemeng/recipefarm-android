@@ -1,9 +1,8 @@
 package com.app.recipefarm.browse;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,13 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.app.recipefarm.R;
 import com.app.recipefarm.browse.viewmodel.FetchRecipesViewModel;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
 import com.app.recipefarm.model.base.Recipe;
+import com.app.recipefarm.recipedetail.RecipeDetailActivity;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -82,7 +82,18 @@ public class BrowseFragment extends RFFragment {
     }
 
     // to be overridden
-    public void onSelectRecipe(String recipeId) {}
+    public void onSelectRecipe(Recipe recipe) {
+        // default - open recipe detail page
+
+        // send data to recipe detail page
+        // convert to json
+        Gson gson = new Gson();
+        String json = gson.toJson(recipe);
+
+        Intent intent = new Intent(getContext(), RecipeDetailActivity.class);
+        intent.putExtra("recipe", json);
+        startActivity(intent);
+    }
 
     // refresh data
     public void refreshData() {
@@ -90,8 +101,8 @@ public class BrowseFragment extends RFFragment {
         initFetchViewModel();
         recipeList = fetchRecipesViewModel.recipeList;
 
-        browseAdapter = new BrowseAdapter(getContext(), recipeList, recipeId -> {
-            onSelectRecipe(recipeId);
+        browseAdapter = new BrowseAdapter(getContext(), recipeList, recipe -> {
+            onSelectRecipe(recipe);
         });
 
         int numberOfColumns = 2; // Change this for different column counts

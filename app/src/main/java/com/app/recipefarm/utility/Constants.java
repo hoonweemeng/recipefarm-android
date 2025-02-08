@@ -28,7 +28,14 @@ public class Constants {
     public static String deleteRecipeEndpoint = BASEURL + "recipe/delete";
     public static String searchRecipeEndpoint = BASEURL + "recipe/search";
     public static String latestRecipeEndpoint = BASEURL + "recipe/latest";
+    public static String bookmarkRecipeEndpoint = BASEURL + "recipe/bookmark";
+    public static String userRecipeEndpoint = BASEURL + "recipe/user";
     public static String detailRecipeEndpoint = BASEURL + "recipe/detail";
+
+    //bookmark endpoints
+    public static String createBookmarkEndpoint = BASEURL + "bookmark/create";
+    public static String deleteBookmarkEndpoint = BASEURL + "bookmark/delete";
+    public static String getBookmarkEndpoint = BASEURL + "bookmark/getbookmark";
 
 
 

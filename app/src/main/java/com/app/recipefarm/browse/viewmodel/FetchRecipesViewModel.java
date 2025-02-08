@@ -5,7 +5,7 @@ import static com.app.recipefarm.utility.RFFunctions.isResponseSuccessful;
 
 import android.content.Context;
 
-import com.app.recipefarm.browse.CompleteRecipeListListener;
+import com.app.recipefarm.utility.CompleteListener;
 import com.app.recipefarm.model.base.Pagination;
 import com.app.recipefarm.model.base.Recipe;
 import com.app.recipefarm.model.request.generic.PaginationRequest;
@@ -24,13 +24,13 @@ public class FetchRecipesViewModel {
     private final String fetchRecipesUrl;
     private PaginationRequest fetchRecipeRequest;
     public RecipeListResponse recipeListResponse;
-    private final CompleteRecipeListListener listener;
+    private final CompleteListener listener;
     private final NetworkManager.ResponseCallback<RecipeListResponse> responseCallback;
     public ArrayList<Recipe> recipeList;
     public Boolean isWaitingForResponse = false;
 
 
-    public FetchRecipesViewModel(Context context, String fetchRecipesUrl, CompleteRecipeListListener listener) {
+    public FetchRecipesViewModel(Context context, String fetchRecipesUrl, CompleteListener listener) {
         this.context = context;
         this.fetchRecipesUrl = fetchRecipesUrl;
         this.listener = listener;

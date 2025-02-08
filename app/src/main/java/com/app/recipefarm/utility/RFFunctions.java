@@ -1,7 +1,6 @@
 package com.app.recipefarm.utility;
 
 import static com.app.recipefarm.utility.Constants.GENERIC_ERROR_MSG;
-import static com.app.recipefarm.utility.Constants.PROFILE_IMAGES;
 import static com.app.recipefarm.utility.Constants.USERID;
 
 import android.app.Activity;
@@ -48,10 +47,6 @@ public class RFFunctions {
         activity.finish();
     }
 
-    public static String getProfileImagePath(String fileName) {
-        return PROFILE_IMAGES + "/" + fileName;
-    }
-
     public static Boolean isNullOrBlank(String value) {
         return (value == null || value.isBlank());
     }
@@ -62,8 +57,7 @@ public class RFFunctions {
 
     public static void responseErrorHandler(Context context, RFResponse response) {
         if (response == null) {
-            RFDialog dialog = new RFDialog(context, "Error", GENERIC_ERROR_MSG, null, "Close", null);
-            dialog.show();
+            showGenericErrorMessage(context);
             return;
         }
         if (response.validationErrors != null && !response.validationErrors.isEmpty()){
@@ -75,9 +69,13 @@ public class RFFunctions {
             dialog.show();
         }
         else {
-            RFDialog dialog = new RFDialog(context, "Error", GENERIC_ERROR_MSG, null, "Close", null);
-            dialog.show();
+            showGenericErrorMessage(context);
         }
+    }
+
+    public static void showGenericErrorMessage(Context context) {
+        RFDialog dialog = new RFDialog(context, "Error", GENERIC_ERROR_MSG, null, "Close", null);
+        dialog.show();
     }
 
     public static List<ValidationModel> getInvalidEntries(List<ValidationModel> validationList){

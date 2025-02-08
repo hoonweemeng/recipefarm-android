@@ -20,16 +20,6 @@
             android:id="@+id/action_bar"
             layout="@layout/layout_generic_action_bar" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/recipeDetailSwipeRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint ="@color/cadet_blue">
-
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -43,7 +33,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@color/cadet_blue"
                         android:visibility="visible">
 
@@ -64,9 +54,9 @@
                             android:id="@+id/recipeDetailTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="20dp"
                             android:layout_marginTop="16dp"
-                            android:layout_marginEnd="8dp"
+                            android:layout_marginEnd="20dp"
                             android:layout_marginBottom="16dp"
                             android:fontFamily="@font/poppins_bold"
                             android:text="TextView"
@@ -81,7 +71,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/imageView4"
@@ -94,14 +84,14 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_people"
-                            app:tint="@color/dark_grey" />
+                            app:tint="@color/light_grey" />
 
                         <TextView
                             android:id="@+id/recipeDetailPax"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/poppins_semibold"
+                            android:fontFamily="@font/poppins_regular"
                             android:text="TextView"
                             android:textColor="@color/dark_grey"
                             android:textSize="14sp"
@@ -118,14 +108,14 @@
                             app:layout_constraintEnd_toStartOf="@+id/recipeDetailDuration"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_timer"
-                            app:tint="@color/dark_grey" />
+                            app:tint="@color/light_grey" />
 
                         <TextView
                             android:id="@+id/recipeDetailDuration"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="20dp"
-                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginEnd="40dp"
+                            android:fontFamily="@font/poppins_regular"
                             android:text="10min"
                             android:textColor="@color/dark_grey"
                             android:textSize="14sp"
@@ -146,7 +136,7 @@
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Description"
                             android:textColor="@color/dark_grey"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/recipeDetailDescription"
@@ -182,7 +172,7 @@
                                 app:cardCornerRadius="250dp">
 
                                 <ImageView
-                                    android:id="@+id/profileImageView"
+                                    android:id="@+id/recipeDetailUserImage"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"
@@ -212,7 +202,7 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/textView11"
+                                android:id="@+id/recipeDetailUsername"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_semibolditalic"
@@ -235,7 +225,7 @@
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Ingredients"
                             android:textColor="@color/dark_grey"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recipeDetailIngredientRV"
@@ -248,7 +238,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingHorizontal="20dp"
                         android:paddingTop="20dp">
@@ -259,10 +249,10 @@
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Instructions"
                             android:textColor="@color/dark_grey"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recipeDetail"
+                            android:id="@+id/recipeDetailInstructionRV"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:nestedScrollingEnabled="false"
@@ -272,12 +262,10 @@
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="80dp" />
+                        android:layout_height="100dp" />
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
     </LinearLayout>
 

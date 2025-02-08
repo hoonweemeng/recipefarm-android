@@ -23,8 +23,10 @@ import androidx.fragment.app.Fragment;
 
 import com.app.recipefarm.core.RFActivity;
 import com.app.recipefarm.core.RFDialog;
+import com.app.recipefarm.home.BookmarkFragment;
 import com.app.recipefarm.home.HomeFragment;
-import com.app.recipefarm.profile.ProfileFragment;
+import com.app.recipefarm.home.ProfileFragment;
+import com.app.recipefarm.model.base.IdModel;
 import com.app.recipefarm.model.request.generic.EmptyRequest;
 import com.app.recipefarm.model.response.user.UserDetailResponse;
 import com.app.recipefarm.onboarding.GetStartedFragment;
@@ -43,9 +45,11 @@ public class MainActivity extends RFActivity {
     private FrameLayout frameOnBoarding, frameBody;
 
     //main page fragment
-    private Fragment profileFragment, homeFragment, registerFragment;
+    private Fragment profileFragment, homeFragment, bookmarkFragment;
 
     private String userId;
+
+    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,43 +106,27 @@ public class MainActivity extends RFActivity {
         if (!isNullOrBlank(userId) && RFDataManager.shared().user == null){
             fetchUserDetail();
         }
-
-        if (RFDataManager.shared().mainActivityHelper.navigationPage != null){
-            switch (RFDataManager.shared().mainActivityHelper.navigationPage) {
-                case HOME:
-                    selectTab(navHome);
-                    break;
-                case BOOKMARK:
-                    selectTab(navBookmarks);
-                    break;
-                case PROFILE:
-                    selectTab(navProfile);
-                    break;
-            }
-            // reset navigation helper
-            RFDataManager.shared().mainActivityHelper = new MainActivityHelper();
-        }
     }
 
     private void fetchUserDetail() {
         Context cxt = this;
-        showLoader(null);
+        showLoader(null, true);
         //send request
         NetworkManager.getInstance(this).post(
                 detailUserEndpoint,
                 getHeaders(this),
-                new EmptyRequest(),
+                new IdModel(userId),
                 UserDetailResponse.class,
                 new NetworkManager.ResponseCallback<>() {
                     @Override
                     public void onSuccess(UserDetailResponse response) {
+                        // hide loader only on success
                         loader.hide();
                         parseUserDetailResponse(response);
                     }
 
                     @Override
                     public void onError(String error) {
-                        loader.hide();
                         RFDialog dialog = new RFDialog(cxt, "Error", error, null, "Close", null);
                         dialog.show();
                     }
@@ -203,22 +191,37 @@ public class MainActivity extends RFActivity {
     }
 
     public void initFragments() {
-        profileFragment = new ProfileFragment();
         homeFragment = new HomeFragment();
+        bookmarkFragment = new BookmarkFragment();
+        profileFragment = new ProfileFragment();
     }
 
     private void selectTab(View selectedTab) {
+        // if user click on the same nav Btn continuously, fragment will be refreshed.
         resetTabs();
         int selectedTabColor = R.color.cadet_blue;
+
         if (selectedTab.equals(navHome)) {
             changeTabButtonColor(iconHome, textHome, selectedTabColor);
+            if (homeFragment.equals(currentFragment)) {
+                homeFragment = new HomeFragment();
+            }
             switchFragments(homeFragment, R.id.mainbody_frame);
+
 
         } else if (selectedTab.equals(navBookmarks)) {
             changeTabButtonColor(iconBookmarks, textBookmarks, selectedTabColor);
+            if (bookmarkFragment.equals(currentFragment)) {
+                bookmarkFragment = new BookmarkFragment();
+            }
+            switchFragments(bookmarkFragment, R.id.mainbody_frame);
+
 
         } else if (selectedTab.equals(navProfile)) {
             changeTabButtonColor(iconProfile, textProfile, selectedTabColor);
+            if (profileFragment.equals(currentFragment)) {
+                profileFragment = new ProfileFragment();
+            }
             switchFragments(profileFragment, R.id.mainbody_frame);
         }
     }
@@ -233,5 +236,11 @@ public class MainActivity extends RFActivity {
     private void changeTabButtonColor(ImageView imageView, TextView textView, int color){
         imageView.setColorFilter(getResources().getColor(color, null));
         textHome.setTextColor(getResources().getColor(color, null));
+    }
+
+    @Override
+    public void switchFragments(Fragment newFragment, int frame) {
+        super.switchFragments(newFragment, frame);
+        currentFragment = newFragment;
     }
 }

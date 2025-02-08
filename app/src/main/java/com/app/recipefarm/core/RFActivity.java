@@ -27,9 +27,9 @@ public class RFActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
-    public void showLoader(String message){
+    public void showLoader(String message, Boolean isFullScreen){
         loader = new RFLoader(this);
-        loader.show(message, true);
+        loader.show(message, isFullScreen);
     }
 
     public void initActionBar(String title, Boolean requireBackBtn) {
