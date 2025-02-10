@@ -18,6 +18,7 @@ import com.app.recipefarm.action.ActionAdapter;
 import com.app.recipefarm.action.ActionListener;
 import com.app.recipefarm.action.viewmodels.ActionViewModel;
 import com.app.recipefarm.core.RFFragment;
+import com.app.recipefarm.myrecipe.MyRecipeActivity;
 import com.app.recipefarm.recipeform.RecipeFormActivity;
 import com.app.recipefarm.utility.RFFunctions;
 import com.bumptech.glide.Glide;
@@ -86,6 +87,8 @@ public class ProfileFragment extends RFFragment {
                 break;
 
             case MY_RECIPES:
+                Intent myRecipesIntent = new Intent(getActivity(), MyRecipeActivity.class);
+                startActivity(myRecipesIntent);
                 break;
 
             case LOGOUT:

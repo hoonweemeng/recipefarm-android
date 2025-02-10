@@ -17,15 +17,14 @@ import java.util.ArrayList;
 public class FetchRecipesViewModel {
     // handle fetch request of recipes
 
-    private final int pageSize = 10;
-    private int currentPage = 0;
+    public final int pageSize = 10;
+    public int currentPage = 0;
     public boolean onLastPage = false;
-    private final Context context;
-    private final String fetchRecipesUrl;
-    private PaginationRequest fetchRecipeRequest;
+    public Context context;
+    public String fetchRecipesUrl;
     public RecipeListResponse recipeListResponse;
-    private final CompleteListener listener;
-    private final NetworkManager.ResponseCallback<RecipeListResponse> responseCallback;
+    public CompleteListener listener;
+    public NetworkManager.ResponseCallback<RecipeListResponse> responseCallback;
     public ArrayList<Recipe> recipeList;
     public Boolean isWaitingForResponse = false;
 
@@ -55,12 +54,16 @@ public class FetchRecipesViewModel {
 
     public void fetchRecipes() {
         // construct request
-        int nextPage = currentPage + 1;
-        fetchRecipeRequest = new PaginationRequest(new Pagination(nextPage, pageSize));
+        PaginationRequest fetchRecipeRequest = new PaginationRequest(getPaginationModel());
 
         //fetch recipes
         NetworkManager.getInstance(context).post(fetchRecipesUrl, getHeaders(context), fetchRecipeRequest, RecipeListResponse.class, responseCallback);
         isWaitingForResponse = true;
+    }
+
+    public Pagination getPaginationModel() {
+        int nextPage = currentPage + 1;
+        return new Pagination(nextPage, pageSize);
     }
 
 

@@ -19,6 +19,7 @@ import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
 import com.app.recipefarm.model.base.Recipe;
 import com.app.recipefarm.recipedetail.RecipeDetailActivity;
+import com.app.recipefarm.utility.CompleteListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class BrowseFragment extends RFFragment {
     public BrowseAdapter browseAdapter;
     public FetchRecipesViewModel fetchRecipesViewModel;
     public SwipeRefreshLayout swipeRefreshLayout;
+
+    public CompleteListener responseListener;
 
     public BrowseFragment() {
         // Required empty public constructor
@@ -71,6 +74,31 @@ public class BrowseFragment extends RFFragment {
                 refreshData();
             }
         });
+
+        responseListener = success -> {
+
+            // handle response
+            if (success) {
+                handleSuccessfulResponse();
+            }
+            else {
+
+                // hide progress bar
+                progressBar.setVisibility(View.GONE);
+
+                // show error message
+                RFDialog dialog = new RFDialog(getContext(), "Error", "Failed to load recipes", "Retry", "Close", new RFDialog.OnDialogActionListener() {
+                    @Override
+                    public void onPositiveAction() {
+                        fetchRecipesViewModel.fetchRecipes();
+                    }
+
+                    @Override
+                    public void onNegativeAction() {}
+                });
+                dialog.show();
+            }
+        };
 
         refreshData();
         return mainView;
@@ -118,30 +146,7 @@ public class BrowseFragment extends RFFragment {
     }
 
     public void initFetchViewModel() {
-        fetchRecipesViewModel = new FetchRecipesViewModel(getContext(), getRecipeListRequestUrl(), success -> {
-
-            // handle response
-            if (success) {
-                handleSuccessfulResponse();
-            }
-            else {
-
-                // hide progress bar
-                progressBar.setVisibility(View.GONE);
-
-                // show error message
-                RFDialog dialog = new RFDialog(getContext(), "Error", "Failed to load recipes", "Retry", "Close", new RFDialog.OnDialogActionListener() {
-                    @Override
-                    public void onPositiveAction() {
-                        fetchRecipesViewModel.fetchRecipes();
-                    }
-
-                    @Override
-                    public void onNegativeAction() {}
-                });
-                dialog.show();
-            }
-        });
+        fetchRecipesViewModel = new FetchRecipesViewModel(getContext(), getRecipeListRequestUrl(), responseListener);
     }
 
     public void handleSuccessfulResponse() {

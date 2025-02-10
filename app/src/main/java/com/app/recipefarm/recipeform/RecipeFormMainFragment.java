@@ -30,6 +30,9 @@ import com.app.recipefarm.RFDataManager;
 import com.app.recipefarm.core.RFDialog;
 import com.app.recipefarm.core.RFFragment;
 import com.app.recipefarm.model.base.ValidationModel;
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,8 +146,8 @@ public class RecipeFormMainFragment extends RFFragment {
     private void fillInExistingData() {
         titleField.setText(RFDataManager.shared().recipeFormHelper.recipe.title);
         descriptionField.setText(RFDataManager.shared().recipeFormHelper.recipe.description);
-        durationField.setText(RFDataManager.shared().recipeFormHelper.recipe.duration);
-        servingsField.setText(RFDataManager.shared().recipeFormHelper.recipe.servings);
+        durationField.setText(String.valueOf(RFDataManager.shared().recipeFormHelper.recipe.duration));
+        servingsField.setText(String.valueOf(RFDataManager.shared().recipeFormHelper.recipe.servings));
     }
 
     private void initRecipeImage() {
@@ -159,7 +162,11 @@ public class RecipeFormMainFragment extends RFFragment {
             updateImageCardStyle();
 
             // fetch and display image
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference(RFDataManager.shared().recipeFormHelper.recipe.getImagePath());
 
+            Glide.with(getContext())
+                    .load(storageRef)
+                    .into(recipeImageView);
         }
         else {
             // no image
